@@ -1,21 +1,35 @@
 package appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
+import java.net.MalformedURLException;
 
 public class HelperBase {
+  protected ApplicationManager app;
   protected WebDriver wd;
 
-  public HelperBase(WebDriver wd) {
-    this.wd = wd;
+  public HelperBase(ApplicationManager app) throws MalformedURLException {
+    this.app = app;
+    this.wd = app.getDriver();
   }
 
   protected void click(By locator) {
     wd.findElement(locator).click();
+  }
+
+  protected void scroll(By locator) {
+    WebElement element = wd.findElement(locator);
+    Actions actions = new Actions(wd);
+    actions.moveToElement(element);
+    actions.perform();
+  }
+
+  protected void clickToClick(By locatorOne, By locatorTwo) {
+    wd.findElement(locatorOne).findElement(locatorTwo).click();
   }
 
   protected void type(By locator, String text) {
@@ -23,7 +37,7 @@ public class HelperBase {
     if (text != null) {//Добавлена возможность запуска тестов с пропуском полей
       String existingText = wd.findElement(locator).getAttribute("value");
       if (!text.equals(existingText)) {//Добавлена проверка на пропуск полей с неизменяемыми в тесте значениями
-        wd.findElement(locator).clear();
+        //wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
     }

@@ -19,7 +19,7 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task testCC(type: Test) {
+task testNLMK(type: Test) {
     useTestNG {
         suites 'src/test/resources/testng-nlmk.xml'
     }

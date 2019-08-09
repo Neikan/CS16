@@ -1,0 +1,2 @@
+16:34:33.976 [Test worker] INFO  tests.TestBase - Start test testOpenForm with parameters[]
+16:35:22.980 [Test worker] INFO  tests.TestBase - Stop test testOpenForm

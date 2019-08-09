@@ -1,0 +1,2 @@
+10:24:03.131 [Test worker] INFO  tests.TestBase - Start test testOpenWT with parameters[]
+10:24:47.201 [Test worker] INFO  tests.TestBase - Stop test testOpenWT

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tests.outdocs.OpenWT" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-08-07T08:46:48" hostname="Hastur" time="181.381">
-  <properties/>
-  <testcase name="testOpenWT" classname="tests.outdocs.OpenWT" time="181.381"/>
-  <system-out><![CDATA[11:46:48.854 [Test worker] INFO  tests.TestBase - Start test testOpenWT with parameters[]
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -4,6 +4,7 @@
     <test name="NLMK">
         <classes>
             <class name="tests.docsout.OpenWT" />
+            <class name="tests.docsout.OpenForm" />
         </classes>
     </test>
 </suite>
