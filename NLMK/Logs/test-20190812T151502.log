@@ -1,0 +1,2 @@
+15:15:15.636 [Test worker] INFO  tests.TestBase - Start test testGetLocators with parameters[]
+15:16:39.386 [Test worker] INFO  tests.TestBase - Stop test testGetLocators

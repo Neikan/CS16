@@ -1,5 +1,8 @@
 package appmanager;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -19,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   private final Properties properties;
   WebDriver wd;
+  JavascriptExecutor js;
 
   private HelperSession helperSession;
   private HelperNavigation helperNavigation;
@@ -39,10 +43,10 @@ public class ApplicationManager {
     Windowalert.accept();
     wd.switchTo().defaultContent() ;*/
 
-    //helperDocs = new HelperDocs(this);
-    //helperDocsOut = new HelperDocsOut(this);
-    //helperNavigation = new HelperNavigation(this);
-    //helperSession = new HelperSession(this);
+    helperDocs = new HelperDocs(this);
+    helperDocsOut = new HelperDocsOut(this);
+    helperNavigation = new HelperNavigation(this);
+    helperSession = new HelperSession(this);
   }
 
   public String getProperty(String key) {
@@ -54,10 +58,8 @@ public class ApplicationManager {
       if ("".equals(properties.getProperty("selenium.server"))) {
         if (browser.equals(BrowserType.FIREFOX)) {
           wd = new FirefoxDriver();
-          wd.manage().window().maximize();
         } else if (browser.equals(BrowserType.CHROME)) {
           wd = new ChromeDriver();
-          wd.manage().window().maximize();
         } else if (browser.equals(BrowserType.IE)) {
           wd = new InternetExplorerDriver();
         }
@@ -67,7 +69,10 @@ public class ApplicationManager {
 
         wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
       }
-      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+      js = (JavascriptExecutor) wd;
+      wd.manage().window().maximize();
+      wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
@@ -105,6 +110,22 @@ public class ApplicationManager {
       helperSession = new HelperSession(this);
     }
     return helperSession;
+  }
+
+  private static void addJQuery (JavascriptExecutor js) {
+
+    String script = "";
+
+    boolean needInjection = (Boolean)(js.executeScript("return this.$ === undefined;"));
+    if(needInjection) {
+      URL u = Resources.getResource("jquery.js");
+      try {
+        script = Resources.toString(u, Charsets.UTF_8);
+      } catch(IOException e) {
+        e.printStackTrace();
+      }
+      js.executeScript(script);
+    }
   }
 
 }

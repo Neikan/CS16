@@ -4,7 +4,8 @@
     <test name="NLMK">
         <classes>
             <class name="tests.docsout.OpenWT" />
-            <class name="tests.docsout.OpenForm" />
+            <class name="tests.docsout.FillNewForm" />
+            <class name="tests.docsout.GetLocators" />
         </classes>
     </test>
 </suite>

@@ -1,6 +1,8 @@
 package appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +27,7 @@ public class HelperNavigation extends HelperBase{
 
   public void docsOutbound() {
     wd.findElement(By.linkText("Исходящие документы")).click();
+    //(new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(By.linkText("Исходящие документы"))).click();
   }
 
   public void errands() {

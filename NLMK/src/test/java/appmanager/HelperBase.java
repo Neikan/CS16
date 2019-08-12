@@ -4,21 +4,33 @@ package appmanager;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelperBase {
   protected ApplicationManager app;
   protected WebDriver wd;
+  protected JavascriptExecutor js;
 
   public HelperBase(ApplicationManager app) throws MalformedURLException {
     this.app = app;
     this.wd = app.getDriver();
+    this.js = app.js;
   }
 
   protected void click(By locator) {
     wd.findElement(locator).click();
+  }
+
+  protected void clickWait(By locator) {
+    //WebElement explicitWait = (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
+    (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
+    //wd.findElement(locator).click();
   }
 
   protected void scroll(By locator) {
@@ -28,16 +40,26 @@ public class HelperBase {
     actions.perform();
   }
 
-  protected void clickToClick(By locatorOne, By locatorTwo) {
-    wd.findElement(locatorOne).findElement(locatorTwo).click();
+  protected void clickJS(By locator) {
+    //js.executeScript( locator + ".click();");
+    //js.executeScript( locator + ".click();");
+    //js.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();}, 100)", we);
+    js.executeScript("var textArea.innerHTML; getTextAreaContent(cont); setTimeout(function() {elem.click();}, 100)");
+  }
+
+  protected void getLoc(By locator) {
+    wd.findElement(locator).getAttribute("title");
+    System.out.println(wd.findElement(locator).getAttribute("title"));
+
+    System.out.println(wd.findElement(locator).getCssValue("title"));
   }
 
   protected void type(By locator, String text) {
     click(locator);
-    if (text != null) {//Добавлена возможность запуска тестов с пропуском полей
+    if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {//Добавлена проверка на пропуск полей с неизменяемыми в тесте значениями
-        //wd.findElement(locator).clear();
+      if (!text.equals(existingText)) {
+        wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
       }
     }
