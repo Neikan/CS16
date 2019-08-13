@@ -3,11 +3,13 @@ package appmanager;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -58,14 +60,19 @@ public class ApplicationManager {
       if ("".equals(properties.getProperty("selenium.server"))) {
         if (browser.equals(BrowserType.FIREFOX)) {
           wd = new FirefoxDriver();
+          //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+          //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
         } else if (browser.equals(BrowserType.CHROME)) {
           wd = new ChromeDriver();
+          //DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+          //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
         } else if (browser.equals(BrowserType.IE)) {
           wd = new InternetExplorerDriver();
         }
       } else {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser);
+        capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 
         wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
       }
@@ -73,6 +80,9 @@ public class ApplicationManager {
       js = (JavascriptExecutor) wd;
       wd.manage().window().maximize();
       wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+      //wd.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
+      //wd.manage().timeouts().setScriptTimeout(100, TimeUnit.SECONDS);
+
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;

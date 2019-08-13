@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 public class FillNewForm extends TestBase {
 
   @Test
-  public void fillNewForm() throws MalformedURLException {
+  public void fillNewForm() throws MalformedURLException, InterruptedException {
     app.session().loginAuthor();
     app.goTo().docsOutbound();
     app.docsout().gotoNewPage();
@@ -19,5 +19,6 @@ public class FillNewForm extends TestBase {
     app.docsout().docAccounting();
     app.docsout().fillDocAccounting();
     app.docsout().confirmAddDoc();
+
   }
 }

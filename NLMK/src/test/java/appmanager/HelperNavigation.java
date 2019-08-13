@@ -26,8 +26,8 @@ public class HelperNavigation extends HelperBase{
   }
 
   public void docsOutbound() {
-    wd.findElement(By.linkText("Исходящие документы")).click();
-    //(new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(By.linkText("Исходящие документы"))).click();
+    wd.findElement(By.linkText("Исходящие документы")).click();  // не всегда работает, не всегда кликабелен, нужно что-то с ожиданиями придумать
+    //(new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(By.linkText("Исходящие документы"))).click(); // - не помогло
   }
 
   public void errands() {

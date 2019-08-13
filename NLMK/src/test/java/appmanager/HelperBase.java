@@ -1,7 +1,6 @@
 package appmanager;
 
 
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,8 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HelperBase {
   protected ApplicationManager app;
@@ -27,10 +24,16 @@ public class HelperBase {
     wd.findElement(locator).click();
   }
 
-  protected void clickWait(By locator) {
-    //WebElement explicitWait = (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
-    (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
-    //wd.findElement(locator).click();
+  protected void doubleClick(By locator) {
+    Actions actions = new Actions(wd);
+    WebElement elementLocator = wd.findElement(locator);
+    actions.doubleClick(elementLocator).perform();
+  }
+
+  protected void rightClick(By locator) {
+    Actions actions = new Actions(wd);
+    WebElement elementLocator = wd.findElement(locator);
+    actions.contextClick(elementLocator).perform();
   }
 
   protected void scroll(By locator) {
@@ -38,6 +41,16 @@ public class HelperBase {
     Actions actions = new Actions(wd);
     actions.moveToElement(element);
     actions.perform();
+  }
+
+  protected void sendKey(By locator, Keys keys) {
+    wd.findElement(locator).sendKeys(keys);
+  }
+
+  protected void clickWait(By locator) {
+    //WebElement explicitWait = (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
+    (new WebDriverWait(wd, 30)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
+    //wd.findElement(locator).click();
   }
 
   protected void clickJS(By locator) {
@@ -55,6 +68,17 @@ public class HelperBase {
   }
 
   protected void type(By locator, String text) {
+    clickWait(locator);
+    if (text != null) {
+      String existingText = wd.findElement(locator).getAttribute("value");
+      if (!text.equals(existingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
+    }
+  }
+
+  protected void typeWait(By locator, String text) {
     click(locator);
     if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
@@ -69,6 +93,10 @@ public class HelperBase {
     if (file != null) {
       wd.findElement(locator).sendKeys(file.getAbsolutePath());
     }
+  }
+
+  protected void waitDoc() throws InterruptedException {
+    wd.manage().wait(10);
   }
 
   public boolean isElementPresent(By locator) {
