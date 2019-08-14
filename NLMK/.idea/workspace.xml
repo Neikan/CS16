@@ -115,6 +115,26 @@
     </option>
   </component>
   <component name="RunManager" selected="TestNG.fillNewFormDocOut">
+    <configuration name="FillNewForm" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;tests.docsout.FillNewForm&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTestNLMK" />
+            <option value=":testNLMK" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="GetLocators" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -178,9 +198,11 @@
       <item itemvalue="Gradle.OpenForm" />
       <item itemvalue="Gradle.GetLocators" />
       <item itemvalue="TestNG.fillNewFormDocOut" />
+      <item itemvalue="Gradle.FillNewForm" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.FillNewForm" />
         <item itemvalue="Gradle.OpenForm" />
         <item itemvalue="Gradle.GetLocators" />
       </list>

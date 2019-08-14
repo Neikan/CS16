@@ -3,7 +3,6 @@ package appmanager;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -26,6 +25,7 @@ public class ApplicationManager {
   WebDriver wd;
   JavascriptExecutor js;
 
+  private HelperBase helperBase;
   private HelperSession helperSession;
   private HelperNavigation helperNavigation;
   private HelperDocs helperDocs;
@@ -45,6 +45,7 @@ public class ApplicationManager {
     Windowalert.accept();
     wd.switchTo().defaultContent() ;*/
 
+    helperBase = new HelperBase(this);
     helperDocs = new HelperDocs(this);
     helperDocsOut = new HelperDocsOut(this);
     helperNavigation = new HelperNavigation(this);
@@ -131,9 +132,7 @@ public class ApplicationManager {
   }
 
   private static void addJQuery (JavascriptExecutor js) {
-
     String script = "";
-
     boolean needInjection = (Boolean)(js.executeScript("return this.$ === undefined;"));
     if(needInjection) {
       URL u = Resources.getResource("jquery.js");

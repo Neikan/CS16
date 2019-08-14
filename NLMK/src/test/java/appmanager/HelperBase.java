@@ -29,27 +29,22 @@ public class HelperBase {
   }
 
   protected void clickSimple(By locator) {
-    WebDriverWait wait = new WebDriverWait(wd, 30);
-    wait.until(elementToBeClickable(locator));
     wd.findElement(locator).click();
   }
 
   protected void doubleClick(By locator) {
     Actions actions = new Actions(wd);
-    WebElement elementLocator = wd.findElement(locator);
-    actions.doubleClick(elementLocator).perform();
+    actions.doubleClick(wd.findElement(locator)).perform();
   }
 
   protected void rightClick(By locator) {
     Actions actions = new Actions(wd);
-    WebElement elementLocator = wd.findElement(locator);
-    actions.contextClick(elementLocator).perform();
+    actions.contextClick(wd.findElement(locator)).perform();
   }
 
   protected void scroll(By locator) {
-    WebElement element = wd.findElement(locator);
     Actions actions = new Actions(wd);
-    actions.moveToElement(element);
+    actions.moveToElement(wd.findElement(locator));
     actions.perform();
   }
 
