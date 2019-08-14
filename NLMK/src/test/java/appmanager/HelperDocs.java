@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 import java.net.MalformedURLException;
 
-public class HelperDocs extends HelperBase{
+public class HelperDocs extends HelperBase {
 
   public HelperDocs(ApplicationManager app) throws MalformedURLException {
     super(app);
