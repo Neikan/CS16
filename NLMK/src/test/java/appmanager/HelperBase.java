@@ -9,18 +9,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.net.MalformedURLException;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+
 public class HelperBase {
   protected ApplicationManager app;
   protected WebDriver wd;
-  protected JavascriptExecutor js;
+  //protected JavascriptExecutor js;
 
   public HelperBase(ApplicationManager app) throws MalformedURLException {
     this.app = app;
     this.wd = app.getDriver();
-    this.js = app.js;
+    //this.js = app.js;
   }
 
   protected void click(By locator) {
+    WebDriverWait wait = new WebDriverWait(wd, 30);
+    wait.until(elementToBeClickable(locator));
+    wd.findElement(locator).click();
+  }
+
+  protected void clickSimple(By locator) {
+    WebDriverWait wait = new WebDriverWait(wd, 30);
+    wait.until(elementToBeClickable(locator));
     wd.findElement(locator).click();
   }
 
@@ -57,18 +67,17 @@ public class HelperBase {
     //js.executeScript( locator + ".click();");
     //js.executeScript( locator + ".click();");
     //js.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();}, 100)", we);
-    js.executeScript("var textArea.innerHTML; getTextAreaContent(cont); setTimeout(function() {elem.click();}, 100)");
+    //js.executeScript("var textArea.innerHTML; getTextAreaContent(cont); setTimeout(function() {elem.click();}, 100)");
   }
 
   protected void getLoc(By locator) {
     wd.findElement(locator).getAttribute("title");
     System.out.println(wd.findElement(locator).getAttribute("title"));
-
     System.out.println(wd.findElement(locator).getCssValue("title"));
   }
 
   protected void type(By locator, String text) {
-    clickWait(locator);
+    click(locator);
     if (text != null) {
       String existingText = wd.findElement(locator).getAttribute("value");
       if (!text.equals(existingText)) {

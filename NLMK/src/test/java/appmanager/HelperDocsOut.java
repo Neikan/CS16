@@ -1,6 +1,5 @@
 package appmanager;
 
-import com.google.gson.internal.$Gson$Preconditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -113,8 +112,8 @@ public class HelperDocsOut extends HelperDocs {
     // Отправитель
     // Способ 1
     //clickWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
-    clickWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
-    typeWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Рокоссовский");
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
+    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Рокоссовский");
     sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::td[15]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Закрыть'])[1]/preceding::button[1]"));
@@ -138,7 +137,6 @@ public class HelperDocsOut extends HelperDocs {
     //click(By.xpath("//*[@id=\"refsadmin-container-panel\"]/div[2]/table/tbody/tr[3]/td[1]")); - проверить
     //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Высокий'])[2]/following::td[2]"));
     //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='>>'])[1]/following::button[1]"));
-
 
     // Обоснование приоритета
     scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обоснование приоритета'])[1]/following::textarea[1]"));

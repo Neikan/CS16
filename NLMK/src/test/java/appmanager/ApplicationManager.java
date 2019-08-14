@@ -60,19 +60,27 @@ public class ApplicationManager {
       if ("".equals(properties.getProperty("selenium.server"))) {
         if (browser.equals(BrowserType.FIREFOX)) {
           wd = new FirefoxDriver();
-          //DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+          DesiredCapabilities capabilities = DesiredCapabilities.firefox();
           //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
+          capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager"); // normal (document.readyState == complete), eager (document.readyState == interactive), none – вообще не ждать
+
         } else if (browser.equals(BrowserType.CHROME)) {
           wd = new ChromeDriver();
-          //DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+          DesiredCapabilities capabilities = DesiredCapabilities.chrome();
           //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
+          capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
+
         } else if (browser.equals(BrowserType.IE)) {
           wd = new InternetExplorerDriver();
+          DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+          //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
+          capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
         }
       } else {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(browser);
-        capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
+        capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager");
+        //capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
 
         wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
       }
