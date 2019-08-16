@@ -11,7 +11,11 @@ public class HelperDocs extends HelperBase {
   }
 
   public void gotoNewPage() {
-    click(By.cssSelector("span.icon.icon-toolbarAdd")); // не всегда работает, не всегда кликабелен, нужно что-то с ожиданиями придумать
+    //visibleOff(By.xpath("/html/body/div[3]/div[1]"));
+    //visibleOff(By.xpath("/html/body/div[3]/div[2]/div/div[1]/div/div[3]"));
+    //visibleOff(By.className("loader"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
   }
 
   public void confirmAddDoc() {

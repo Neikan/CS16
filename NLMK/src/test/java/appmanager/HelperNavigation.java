@@ -1,8 +1,10 @@
 package appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
+import java.util.List;
 
 public class HelperNavigation extends HelperBase {
 
@@ -23,15 +25,15 @@ public class HelperNavigation extends HelperBase {
   }
 
   public void docsOutbound() {
+    visibleOffAll(By.className("load-container binf-hidden"));
     click(By.linkText("Исходящие документы"));
-    //(new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(By.linkText("Исходящие документы"))).click(); // - не помогло
   }
 
   public void errands() {
     click(By.linkText("Поручения"));
   }
 
-  public void docsRegulatory () {
+  public void docsRegulatory() {
     click(By.linkText("Распорядительные документы"));
   }
 

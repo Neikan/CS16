@@ -32,6 +32,8 @@ public class HelperDocsOut extends HelperDocs {
 
   public void fillDocDetails() {
 
+    visibleOffAll(By.className("loader"));
+
     // Вид документа
     // Способ 1
     type(By.xpath("(//input[@type='search'])[13]"), "Письмо");
@@ -69,13 +71,13 @@ public class HelperDocsOut extends HelperDocs {
 
   public void fillDocRoute() {
     // Проверка оформления
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[1]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
 
     // Согласование руководителем инициатора
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование руководителем инициатора'])[2]/following::span[1]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование руководителем инициатора'])[2]/following::span[2]"));
 
     // Согласование юристами
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование юристами'])[2]/following::span[1]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование юристами'])[2]/following::span[2]"));
 
     // Нормоконтролер - не заполняем пока что
 
@@ -113,6 +115,8 @@ public class HelperDocsOut extends HelperDocs {
     // Способ 1
     //clickWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
+    scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"));
+    //visibleOff(By.xpath("//*[@id=\"templates\"]/div[1]/table/tbody/tr[2]/td[2]"));
     type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Рокоссовский");
     sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::td[15]"));

@@ -25,11 +25,11 @@ public class ApplicationManager {
   WebDriver wd;
   JavascriptExecutor js;
 
-  private HelperBase helperBase;
   private HelperSession helperSession;
   private HelperNavigation helperNavigation;
   private HelperDocs helperDocs;
   private HelperDocsOut helperDocsOut;
+  private HelperProxyMob helperProxyMob;
   private String browser;
 
   public ApplicationManager(String browser) {
@@ -45,11 +45,15 @@ public class ApplicationManager {
     Windowalert.accept();
     wd.switchTo().defaultContent() ;*/
 
-    helperBase = new HelperBase(this);
+  //  BrowserMobProxy proxy = new BrowserMobProxyServer();
+    //proxy.start(0);
+
+
     helperDocs = new HelperDocs(this);
     helperDocsOut = new HelperDocsOut(this);
     helperNavigation = new HelperNavigation(this);
     helperSession = new HelperSession(this);
+    helperProxyMob = new HelperProxyMob(this);
   }
 
   public String getProperty(String key) {
@@ -88,7 +92,7 @@ public class ApplicationManager {
 
       js = (JavascriptExecutor) wd;
       wd.manage().window().maximize();
-      wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
       //wd.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
       //wd.manage().timeouts().setScriptTimeout(100, TimeUnit.SECONDS);
 
@@ -129,6 +133,13 @@ public class ApplicationManager {
       helperSession = new HelperSession(this);
     }
     return helperSession;
+  }
+
+  public HelperProxyMob proxyMob() throws MalformedURLException {
+    if (helperProxyMob == null) {
+      helperProxyMob = new HelperProxyMob(this);
+    }
+    return helperProxyMob;
   }
 
   private static void addJQuery (JavascriptExecutor js) {

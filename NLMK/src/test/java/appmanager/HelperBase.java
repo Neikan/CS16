@@ -8,8 +8,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class HelperBase {
   protected ApplicationManager app;
@@ -24,8 +25,8 @@ public class HelperBase {
 
   protected void click(By locator) {
     WebDriverWait wait = new WebDriverWait(wd, 30);
-    wait.until(elementToBeClickable(locator));
-    wd.findElement(locator).click();
+    //wait.until(visibilityOfElementLocated(locator));
+    wait.until(elementToBeClickable(locator)).click();
   }
 
   protected void clickSimple(By locator) {
@@ -50,6 +51,27 @@ public class HelperBase {
 
   protected void sendKey(By locator, Keys keys) {
     wd.findElement(locator).sendKeys(keys);
+  }
+
+  protected boolean visibility(By locator) {
+      try {
+        WebDriverWait wait = new WebDriverWait(wd, 60);
+        wait.until(invisibilityOfElementLocated(locator));
+        return false;
+      } catch (NoSuchElementException e) {
+        return true;
+      }
+    }
+
+  protected void visibleOff(By locator) {
+    WebDriverWait wait = new WebDriverWait(wd, 30);
+    wait.until(invisibilityOfElementLocated(locator));
+  }
+
+  protected void visibleOffAll(By locator) {
+    List<WebElement> elements = wd.findElements(locator);
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(invisibilityOfAllElements(elements));
   }
 
   protected void clickWait(By locator) {
