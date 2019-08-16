@@ -25,7 +25,6 @@ public class HelperBase {
 
   protected void click(By locator) {
     WebDriverWait wait = new WebDriverWait(wd, 30);
-    //wait.until(visibilityOfElementLocated(locator));
     wait.until(elementToBeClickable(locator)).click();
   }
 
@@ -53,7 +52,7 @@ public class HelperBase {
     wd.findElement(locator).sendKeys(keys);
   }
 
-  protected boolean visibility(By locator) {
+  protected boolean visibility(By locator) { // Не используется в данный момент
       try {
         WebDriverWait wait = new WebDriverWait(wd, 60);
         wait.until(invisibilityOfElementLocated(locator));
@@ -63,7 +62,7 @@ public class HelperBase {
       }
     }
 
-  protected void visibleOff(By locator) {
+  protected void visibleOff(By locator) { // Не используется в данный момент
     WebDriverWait wait = new WebDriverWait(wd, 30);
     wait.until(invisibilityOfElementLocated(locator));
   }
@@ -74,13 +73,12 @@ public class HelperBase {
     wait.until(invisibilityOfAllElements(elements));
   }
 
-  protected void clickWait(By locator) {
-    //WebElement explicitWait = (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
+  protected void clickWait(By locator) { // Не используется в данный момент
     (new WebDriverWait(wd, 30)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
-    //wd.findElement(locator).click();
+
   }
 
-  protected void clickJS(By locator) {
+  protected void clickJS(By locator) { // Не используется в данный момент
     //js.executeScript( locator + ".click();");
     //js.executeScript( locator + ".click();");
     //js.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();}, 100)", we);
@@ -95,24 +93,14 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator);
-    if (text != null) {
-      String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-      }
-    }
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
-  protected void typeWait(By locator, String text) {
+  protected void typeWait(By locator, String text) { // Не используется в данный момент
     click(locator);
-    if (text != null) {
-      String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-      }
-    }
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
   protected void attach(By locator, File file) {

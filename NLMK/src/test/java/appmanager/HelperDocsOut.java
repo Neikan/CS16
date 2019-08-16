@@ -1,10 +1,14 @@
 package appmanager;
 
+import model.DocOutboundData;
+import model.DocsOutbound;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 
 import java.net.MalformedURLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class HelperDocsOut extends HelperDocs {
   public HelperDocsOut(ApplicationManager app) throws MalformedURLException {
@@ -172,6 +176,35 @@ public class HelperDocsOut extends HelperDocs {
 
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::button[2]"));
 
+  }
+
+  private DocsOutbound docsOutboundCashe = null;
+
+  public DocsOutbound all() {
+    if (docsOutboundCashe != null) {
+      return new DocsOutbound(docsOutboundCashe);
+    }
+
+    docsOutboundCashe = new DocsOutbound();
+    List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
+    for (WebElement row : rows) {
+      String nameDoc = row.getText();
+      String linkDoc = row.getAttribute("href");
+      docsOutboundCashe.add(new DocOutboundData().withNameDoc(nameDoc).withLinkDoc(linkDoc));
+    }
+      return new DocsOutbound(docsOutboundCashe);
+  }
+
+  public void initDocOutboundModification(int id) {
+    click(By.xpath("//a[@href='http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/"+ id +"']"));
+  }
+
+  public void initModification() {
+    visibleOffAll(By.className("load-container binf-hidden")); // Тут нужен какой-то таймаут
+    DocOutboundData doc = all().iterator().next();
+    System.out.println(doc.getNameDoc());
+    System.out.println(doc.getLinkDoc());
+    click(By.linkText(doc.getNameDoc()));
   }
 
 }

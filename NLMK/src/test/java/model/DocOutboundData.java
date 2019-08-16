@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class DocOutboundData {
   private int id = Integer.MAX_VALUE;
+  private String linkDoc; // Ссылка на карточку документа
+  private String nameDoc; // Название карточки документа
   private String typeDoc; // Вид документа
   private String titleText; // Заголовок к тексту
   private String signatory; // Подписант
@@ -11,10 +13,19 @@ public class DocOutboundData {
   private String accessLevel; // Ограничение доступа
   private String status; // Статус
 
+
   // Перечислить остальные поля и таблицы
 
   public int getId() {
     return id;
+  }
+
+  public String getLinkDoc() {
+    return linkDoc;
+  }
+
+  public String getNameDoc() {
+    return nameDoc;
   }
 
   public String getTypeDoc() {
@@ -46,7 +57,18 @@ public class DocOutboundData {
     return this;
   }
 
-  public DocOutboundData withFirstname(String typeDoc) {
+  public DocOutboundData withLinkDoc(String linkDoc) {
+    this.linkDoc = linkDoc;
+    return this;
+  }
+
+  public DocOutboundData withNameDoc(String nameDoc) {
+    this.nameDoc = nameDoc;
+    return this;
+  }
+
+
+  public DocOutboundData withTypeDoc(String typeDoc) {
     this.typeDoc = typeDoc;
     return this;
   }
