@@ -6,6 +6,8 @@
             <class name="tests.docsout.OpenWT" />
             <class name="tests.docsout.FillNewForm" />
             <class name="tests.docsout.GetLocators" />
+            <class name="tests.docsout.TestProxy" />
+            <class name="tests.docsout.TestProxy2" />
         </classes>
     </test>
 </suite>

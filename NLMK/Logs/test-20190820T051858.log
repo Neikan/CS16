@@ -1,0 +1,44 @@
+05:18:59.081 [Test worker] DEBUG i.n.u.i.l.InternalLoggerFactory - Using SLF4J as the default logging framework
+05:18:59.085 [Test worker] DEBUG io.netty.handler.ssl.OpenSsl - netty-tcnative not in the classpath; OpenSslEngine will be unavailable.
+05:18:59.361 [Test worker] DEBUG n.l.b.m.m.ImpersonatingMitmManager - Allowed ciphers for proxy connections to upstream servers (some ciphers may not be available): [TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_RSA_WITH_AES_256_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384, TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_DSS_WITH_AES_256_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_DSS_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384, TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_DHE_DSS_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+05:18:59.363 [Test worker] DEBUG n.l.b.m.m.ImpersonatingMitmManager - Allowed ciphers for client connections to proxy (some ciphers may not be available): [TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384, TLS_RSA_WITH_AES_256_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384, TLS_DHE_RSA_WITH_AES_256_CBC_SHA256, TLS_DHE_DSS_WITH_AES_256_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDH_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_RSA_WITH_AES_256_CBC_SHA, TLS_DHE_DSS_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_RSA_WITH_AES_128_CBC_SHA256, TLS_DHE_DSS_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDH_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_RSA_WITH_AES_128_CBC_SHA, TLS_DHE_DSS_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384, TLS_DHE_RSA_WITH_AES_256_GCM_SHA384, TLS_DHE_DSS_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_RSA_WITH_AES_128_GCM_SHA256, TLS_DHE_DSS_WITH_AES_128_GCM_SHA256, TLS_EMPTY_RENEGOTIATION_INFO_SCSV]
+05:18:59.382 [Test worker] DEBUG o.l.proxy.impl.ServerGroup - UDT provider not found on classpath. UDT transport will not be available.
+05:18:59.406 [Test worker] DEBUG i.n.util.internal.PlatformDependent - Platform: Windows
+05:18:59.408 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - -Dio.netty.noUnsafe: false
+05:18:59.408 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - Java version: 8
+05:18:59.409 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - sun.misc.Unsafe.theUnsafe: available
+05:18:59.410 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - sun.misc.Unsafe.copyMemory: available
+05:18:59.411 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - java.nio.Buffer.address: available
+05:18:59.411 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - direct buffer constructor: available
+05:18:59.412 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - java.nio.Bits.unaligned: available, true
+05:18:59.412 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+05:18:59.412 [Test worker] DEBUG i.n.u.internal.PlatformDependent0 - java.nio.DirectByteBuffer.<init>(long, int): available
+05:18:59.412 [Test worker] DEBUG i.n.util.internal.PlatformDependent - sun.misc.Unsafe: available
+05:18:59.413 [Test worker] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.tmpdir: C:\Users\sladk\AppData\Local\Temp (java.io.tmpdir)
+05:18:59.413 [Test worker] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+05:18:59.414 [Test worker] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.noPreferDirect: false
+05:18:59.414 [Test worker] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.maxDirectMemory: 15196487680 bytes
+05:18:59.414 [Test worker] DEBUG i.n.util.internal.PlatformDependent - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+05:18:59.415 [Test worker] DEBUG io.netty.util.internal.CleanerJava6 - java.nio.ByteBuffer.cleaner(): available
+05:18:59.421 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Starting proxy at address: 0.0.0.0/0.0.0.0:0
+05:18:59.424 [Test worker] DEBUG o.l.proxy.impl.ServerGroup - Initializing thread pools for TCP with 2 acceptor threads, 8 incoming worker threads, and 8 outgoing worker threads
+05:18:59.428 [Test worker] DEBUG i.n.c.MultithreadEventLoopGroup - -Dio.netty.eventLoopThreads: 24
+05:18:59.437 [Test worker] DEBUG io.netty.channel.nio.NioEventLoop - -Dio.netty.noKeySetOptimization: false
+05:18:59.437 [Test worker] DEBUG io.netty.channel.nio.NioEventLoop - -Dio.netty.selectorAutoRebuildThreshold: 512
+05:18:59.450 [Test worker] DEBUG i.n.util.internal.PlatformDependent - org.jctools-core.MpscChunkedArrayQueue: available
+05:18:59.468 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Proxy listening with TCP transport
+05:18:59.484 [Test worker] DEBUG i.n.u.i.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+05:18:59.484 [Test worker] DEBUG i.n.u.i.InternalThreadLocalMap - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+05:18:59.509 [Test worker] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.allocator.type: unpooled
+05:18:59.510 [Test worker] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.threadLocalDirectBufferSize: 65536
+05:18:59.510 [Test worker] DEBUG io.netty.buffer.ByteBufUtil - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+05:18:59.705 [Test worker] DEBUG io.netty.util.NetUtil - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+05:18:59.706 [Test worker] DEBUG io.netty.util.NetUtil - \proc\sys\net\core\somaxconn: 200 (non-existent)
+05:18:59.714 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Proxy started at address: /0:0:0:0:0:0:0:0:58523
+05:19:05.332 [Test worker] INFO  tests.TestBase - Stop test testProxy
+05:19:05.933 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Shutting down proxy server gracefully
+05:19:05.934 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Closing all channels (graceful)
+05:19:05.944 [Test worker] DEBUG o.l.proxy.impl.ServerGroup - Proxy server unregistered from ServerGroup. No proxy servers remain registered, so shutting down ServerGroup.
+05:19:05.945 [Test worker] INFO  o.l.proxy.impl.ServerGroup - Shutting down server group event loops (graceful)
+05:19:08.166 [Test worker] DEBUG o.l.proxy.impl.ServerGroup - Done shutting down server group
+05:19:08.167 [Test worker] INFO  o.l.p.impl.DefaultHttpProxyServer - Done shutting down proxy server

@@ -19,12 +19,12 @@ public class TestBase {
           = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   @BeforeSuite
-  public void setUp() throws Exception {
+  public void setUp() {
     app.init();
   }
 
   @AfterSuite(alwaysRun = true)
-  public void tearDown() throws Exception {
+  public void tearDown() {
     app.stop();
   }
 

@@ -1,13 +1,11 @@
 package appmanager;
 
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -15,12 +13,12 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class HelperBase {
   protected ApplicationManager app;
   protected WebDriver wd;
-  //protected JavascriptExecutor js;
+  //protected BrowserMobProxyServer proxyServer;
 
-  public HelperBase(ApplicationManager app) throws MalformedURLException {
+  public HelperBase(ApplicationManager app) {
     this.app = app;
-    this.wd = app.getDriver();
-    //this.js = app.js;
+    //this.proxyServer = app.getProxy();
+    this.wd = app.getDriver(app.getProxy());
   }
 
   protected void click(By locator) {

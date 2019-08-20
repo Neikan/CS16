@@ -1,14 +1,10 @@
 package appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.net.MalformedURLException;
-import java.util.List;
 
 public class HelperNavigation extends HelperBase {
 
-  public HelperNavigation(ApplicationManager app) throws MalformedURLException {
+  public HelperNavigation(ApplicationManager app) {
     super(app);
   }
 

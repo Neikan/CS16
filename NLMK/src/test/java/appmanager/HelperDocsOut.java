@@ -6,12 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.List;
 
 public class HelperDocsOut extends HelperDocs {
-  public HelperDocsOut(ApplicationManager app) throws MalformedURLException {
+  public HelperDocsOut(ApplicationManager app) {
     super(app);
   }
 
