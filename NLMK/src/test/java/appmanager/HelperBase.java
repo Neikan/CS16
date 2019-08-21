@@ -1,11 +1,14 @@
 package appmanager;
 
+import net.lightbody.bmp.BrowserMobProxyServer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -13,12 +16,12 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class HelperBase {
   protected ApplicationManager app;
   protected WebDriver wd;
-  //protected BrowserMobProxyServer proxyServer;
+  protected BrowserMobProxyServer proxyServer;
 
   public HelperBase(ApplicationManager app) {
     this.app = app;
-    //this.proxyServer = app.getProxy();
-    this.wd = app.getDriver(app.getProxy());
+    this.proxyServer = app.getProxy();
+    this.wd = app.getDriver(proxyServer);
   }
 
   protected void click(By locator) {
@@ -101,9 +104,23 @@ public class HelperBase {
     wd.findElement(locator).sendKeys(text);
   }
 
+  protected void writeHar() {
+    try {
+      String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
+      String time = timeRaw.replace(":", "-").replace(" ", "T");
+      proxyServer.getHar().writeTo(new File("results\\Test " + time + ".json"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   protected void attach(By locator, File file) {
-    if (file != null) {
-      wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    try {
+      if (file != null) {
+        wd.findElement(locator).sendKeys(file.getAbsolutePath());
+      }
+    } catch (Exception e) {
+      System.out.println("can't upload the file " + e);
     }
   }
 

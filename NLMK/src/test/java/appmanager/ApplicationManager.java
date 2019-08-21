@@ -125,14 +125,14 @@ public class ApplicationManager {
 
       proxyServer.newHar("MyExample");
       wd.get(properties.getProperty("web.baseUrl"));
-
+/*
       try {
         String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
         String time = timeRaw.replace(":", "-").replace(" ", "T");
         proxyServer.getHar().writeTo(new File("results\\Test " + time + ".json"));
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }*/
     }
     return wd;
   }

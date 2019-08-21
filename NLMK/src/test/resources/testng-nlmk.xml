@@ -7,7 +7,7 @@
             <class name="tests.docsout.FillNewForm" />
             <class name="tests.docsout.GetLocators" />
             <class name="tests.docsout.TestProxy" />
-            <class name="tests.docsout.TestProxy2" />
+            <class name="tests.docsout.RandomTest" />
         </classes>
     </test>
 </suite>

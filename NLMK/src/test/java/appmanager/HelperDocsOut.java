@@ -3,9 +3,11 @@ package appmanager;
 import model.DocOutboundData;
 import model.DocsOutbound;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -185,7 +187,8 @@ public class HelperDocsOut extends HelperDocs {
     }
 
     docsOutboundCashe = new DocsOutbound();
-    List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
+    //List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
+    List<WebElement> rows = wd.findElements(By.partialLinkText("Имя будет сгенерировано автоматически"));
     for (WebElement row : rows) {
       String nameDoc = row.getText();
       String linkDoc = row.getAttribute("href");
@@ -206,4 +209,70 @@ public class HelperDocsOut extends HelperDocs {
     click(By.linkText(doc.getNameDoc()));
   }
 
+  public void attachFile() {
+    File fileXLS = new File("src/test/resources/Attachments/Excel XLS.xls");
+    //DocOutboundData docOut = new DocOutboundData().withFile(fileXLS);
+
+    File fileXLSX = new File("src/test/resources/Attachments/Excel XLSX.xlsx");
+    File filePDF = new File("src/test/resources/Attachments/PDF 1.pdf");
+    File fileDOC = new File("src/test/resources/Attachments/Служебная записка 1.doc");
+    File fileDOCX = new File("src/test/resources/Attachments/Тестовый документ №1.docx");
+
+    visibleOffAll(By.className("load-container binf-hidden"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Реквизиты'])[1]/following::span[1]"));
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
+    ((JavascriptExecutor)wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  " );
+    click(By.linkText("Документ"));
+    //attach(By.xpath("//input[@type='file']"), docOut.getFile());
+    attach(By.xpath("//input[@type='file']"), fileXLS);
+    visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
+    ((JavascriptExecutor)wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  " );
+    click(By.linkText("Документ"));
+    attach(By.xpath("//input[@type='file']"), fileXLSX);
+    visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
+    ((JavascriptExecutor)wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  " );
+    click(By.linkText("Документ"));
+    attach(By.xpath("//input[@type='file']"), filePDF);
+    visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
+    ((JavascriptExecutor)wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  " );
+    click(By.linkText("Документ"));
+    attach(By.xpath("//input[@type='file']"), fileDOC);
+    visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+
+    click(By.cssSelector("span.icon.icon-toolbarAdd"));
+    ((JavascriptExecutor)wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  " );
+    click(By.linkText("Документ"));
+    attach(By.xpath("//input[@type='file']"), fileDOCX);
+    visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+  }
+
+  public void openRandomCard() {
+    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3655228");
+  }
 }

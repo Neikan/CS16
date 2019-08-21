@@ -17,6 +17,8 @@ public class FillNewForm extends TestBase {
     app.docsout().docAccounting();
     app.docsout().fillDocAccounting();
     app.docsout().confirmAddDoc();
+    System.out.println("Stop");
     app.docsout().initModification();
+    System.out.println("Stop");
   }
 }

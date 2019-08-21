@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.Date;
 
 public class DocOutboundData {
@@ -12,6 +13,7 @@ public class DocOutboundData {
   private Date regDate; // Дата регистрации
   private String accessLevel; // Ограничение доступа
   private String status; // Статус
+  private String file;
 
 
   // Перечислить остальные поля и таблицы
@@ -50,6 +52,13 @@ public class DocOutboundData {
 
   public String getStatus() {
     return status;
+  }
+
+  public File getFile() {
+    if (file == null) {
+      return null;
+    }
+    return new File(file);
   }
 
   public DocOutboundData withId(int id) {
@@ -95,6 +104,11 @@ public class DocOutboundData {
 
   public DocOutboundData withStatus(String status) {
     this.status = status;
+    return this;
+  }
+
+  public DocOutboundData withFile(File file) {
+    this.file = file.getPath();
     return this;
   }
 }
