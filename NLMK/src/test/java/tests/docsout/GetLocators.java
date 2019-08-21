@@ -3,12 +3,10 @@ package tests.docsout;
 import org.testng.annotations.Test;
 import tests.TestBase;
 
-import java.net.MalformedURLException;
-
 public class GetLocators extends TestBase {
 
   @Test
-  public void testGetLocators() throws MalformedURLException, InterruptedException {
+  public void testGetLocators() {
     app.session().loginAuthor();
     app.goTo().docsOutbound();
     app.docsout().gotoNewPage();

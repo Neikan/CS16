@@ -2,11 +2,9 @@ package appmanager;
 
 import org.openqa.selenium.By;
 
-import java.net.MalformedURLException;
-
 public class HelperSession extends HelperBase {
 
-  public HelperSession(ApplicationManager app) throws MalformedURLException {
+  public HelperSession(ApplicationManager app) {
     super(app);
   }
 

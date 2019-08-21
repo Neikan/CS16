@@ -1,55 +1,51 @@
 package appmanager;
 
-
+import net.lightbody.bmp.BrowserMobProxyServer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class HelperBase {
   protected ApplicationManager app;
   protected WebDriver wd;
-  //protected JavascriptExecutor js;
+  protected BrowserMobProxyServer proxyServer;
 
-  public HelperBase(ApplicationManager app) throws MalformedURLException {
+  public HelperBase(ApplicationManager app) {
     this.app = app;
-    this.wd = app.getDriver();
-    //this.js = app.js;
+    this.proxyServer = app.getProxy();
+    this.wd = app.getDriver(proxyServer);
   }
 
   protected void click(By locator) {
     WebDriverWait wait = new WebDriverWait(wd, 30);
-    wait.until(elementToBeClickable(locator));
-    wd.findElement(locator).click();
+    wait.until(elementToBeClickable(locator)).click();
   }
 
   protected void clickSimple(By locator) {
-    WebDriverWait wait = new WebDriverWait(wd, 30);
-    wait.until(elementToBeClickable(locator));
     wd.findElement(locator).click();
   }
 
   protected void doubleClick(By locator) {
     Actions actions = new Actions(wd);
-    WebElement elementLocator = wd.findElement(locator);
-    actions.doubleClick(elementLocator).perform();
+    actions.doubleClick(wd.findElement(locator)).perform();
   }
 
   protected void rightClick(By locator) {
     Actions actions = new Actions(wd);
-    WebElement elementLocator = wd.findElement(locator);
-    actions.contextClick(elementLocator).perform();
+    actions.contextClick(wd.findElement(locator)).perform();
   }
 
   protected void scroll(By locator) {
-    WebElement element = wd.findElement(locator);
     Actions actions = new Actions(wd);
-    actions.moveToElement(element);
+    actions.moveToElement(wd.findElement(locator));
     actions.perform();
   }
 
@@ -57,13 +53,33 @@ public class HelperBase {
     wd.findElement(locator).sendKeys(keys);
   }
 
-  protected void clickWait(By locator) {
-    //WebElement explicitWait = (new WebDriverWait(wd, 10)).until(ExpectedConditions.presenceOfElementLocated(locator));
-    (new WebDriverWait(wd, 30)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
-    //wd.findElement(locator).click();
+  protected boolean visibility(By locator) { // Не используется в данный момент
+      try {
+        WebDriverWait wait = new WebDriverWait(wd, 60);
+        wait.until(invisibilityOfElementLocated(locator));
+        return false;
+      } catch (NoSuchElementException e) {
+        return true;
+      }
+    }
+
+  protected void visibleOff(By locator) { // Не используется в данный момент
+    WebDriverWait wait = new WebDriverWait(wd, 30);
+    wait.until(invisibilityOfElementLocated(locator));
   }
 
-  protected void clickJS(By locator) {
+  protected void visibleOffAll(By locator) {
+    List<WebElement> elements = wd.findElements(locator);
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(invisibilityOfAllElements(elements));
+  }
+
+  protected void clickWait(By locator) { // Не используется в данный момент
+    (new WebDriverWait(wd, 30)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
+
+  }
+
+  protected void clickJS(By locator) { // Не используется в данный момент
     //js.executeScript( locator + ".click();");
     //js.executeScript( locator + ".click();");
     //js.executeScript("var elem=arguments[0]; setTimeout(function() {elem.click();}, 100)", we);
@@ -78,29 +94,33 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator);
-    if (text != null) {
-      String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-      }
-    }
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
-  protected void typeWait(By locator, String text) {
+  protected void typeWait(By locator, String text) { // Не используется в данный момент
     click(locator);
-    if (text != null) {
-      String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-      }
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
+  }
+
+  protected void writeHar() {
+    try {
+      String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
+      String time = timeRaw.replace(":", "-").replace(" ", "T");
+      proxyServer.getHar().writeTo(new File("results\\Test " + time + ".json"));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
   protected void attach(By locator, File file) {
-    if (file != null) {
-      wd.findElement(locator).sendKeys(file.getAbsolutePath());
+    try {
+      if (file != null) {
+        wd.findElement(locator).sendKeys(file.getAbsolutePath());
+      }
+    } catch (Exception e) {
+      System.out.println("can't upload the file " + e);
     }
   }
 
