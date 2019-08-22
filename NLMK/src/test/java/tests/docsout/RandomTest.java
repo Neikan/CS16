@@ -7,13 +7,10 @@ public class RandomTest extends TestBase {
 
   @Test
   public static void randomTest() throws Exception {
-    // TODO Auto-generated method stub
-
-
-
     app.session().loginAuthor();
     app.docsout().openRandomCard();
-    app.docsout().attachFile();
+    //app.docsout().attachFile();
     System.out.println("");
+    app.docsout().startWorkflow();
   }
 }

@@ -188,7 +188,7 @@ public class HelperDocsOut extends HelperDocs {
 
     docsOutboundCashe = new DocsOutbound();
     //List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
-    List<WebElement> rows = wd.findElements(By.partialLinkText("Имя будет сгенерировано автоматически"));
+    List<WebElement> rows = wd.findElements(By.partialLinkText("temp document name"));
     for (WebElement row : rows) {
       String nameDoc = row.getText();
       String linkDoc = row.getAttribute("href");
@@ -273,6 +273,18 @@ public class HelperDocsOut extends HelperDocs {
   }
 
   public void openRandomCard() {
-    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3655228");
+    //wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3655228");
+    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3651853");
+
+  }
+
+  public void startWorkflow() {
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Создать поручение'])[1]/preceding::button[1]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+    click(By.cssSelector("button.binf-btn.binf-btn-primary"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправить'])[1]/preceding::textarea[1]"), "Запуск! 3... 2... 1...");
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отмена'])[2]/preceding::button[1]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
   }
 }

@@ -116,7 +116,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.RandomTest">
+  <component name="RunManager" selected="TestNG.fillNewFormDocOut">
     <configuration name="FillNewForm" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -239,10 +239,10 @@
     <list>
       <item itemvalue="Gradle.FillNewForm" />
       <item itemvalue="Gradle.ProxyServerTest" />
-      <item itemvalue="TestNG.fillNewFormDocOut" />
       <item itemvalue="Gradle.TestProxy" />
       <item itemvalue="Gradle.TestProxy2" />
       <item itemvalue="Gradle.RandomTest" />
+      <item itemvalue="TestNG.fillNewFormDocOut" />
     </list>
     <recent_temporary>
       <list>
@@ -434,9 +434,29 @@
           <option name="timeStamp" value="168" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/tests/docsout/RandomTest.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="169" />
+          <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
+          <line>281</line>
+          <option name="timeStamp" value="170" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
+          <line>283</line>
+          <option name="timeStamp" value="171" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
+          <line>284</line>
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
+          <line>285</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
+          <line>287</line>
+          <option name="timeStamp" value="174" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

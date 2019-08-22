@@ -74,6 +74,12 @@ public class HelperBase {
     wait.until(invisibilityOfAllElements(elements));
   }
 
+  protected void visibleOnAll(By locator) {
+    List<WebElement> elements = wd.findElements(locator);
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(visibilityOfAllElements(elements));
+  }
+
   protected void clickWait(By locator) { // Не используется в данный момент
     (new WebDriverWait(wd, 30)).until(ExpectedConditions.presenceOfElementLocated(locator)).click();
 
