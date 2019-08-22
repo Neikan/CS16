@@ -76,7 +76,8 @@ public class HelperDocsOut extends HelperDocs {
 
   public void fillDocRoute() {
     // Проверка оформления
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
+    //scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[2]/following::span[2]"));
 
     // Согласование руководителем инициатора
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование руководителем инициатора'])[2]/following::span[2]"));
