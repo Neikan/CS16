@@ -1,12 +1,14 @@
 package appmanager;
 
 import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.core.har.HarEntry;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -54,14 +56,14 @@ public class HelperBase {
   }
 
   protected boolean visibility(By locator) { // Не используется в данный момент
-      try {
-        WebDriverWait wait = new WebDriverWait(wd, 60);
-        wait.until(invisibilityOfElementLocated(locator));
-        return false;
-      } catch (NoSuchElementException e) {
-        return true;
-      }
+    try {
+      WebDriverWait wait = new WebDriverWait(wd, 60);
+      wait.until(invisibilityOfElementLocated(locator));
+      return false;
+    } catch (NoSuchElementException e) {
+      return true;
     }
+  }
 
   protected void visibleOff(By locator) { // Не используется в данный момент
     WebDriverWait wait = new WebDriverWait(wd, 30);
@@ -72,6 +74,12 @@ public class HelperBase {
     List<WebElement> elements = wd.findElements(locator);
     WebDriverWait wait = new WebDriverWait(wd, 5);
     wait.until(invisibilityOfAllElements(elements));
+  }
+
+  protected void visibleOnAll(By locator) {
+    List<WebElement> elements = wd.findElements(locator);
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(visibilityOfAllElements(elements));
   }
 
   protected void clickWait(By locator) { // Не используется в данный момент
@@ -104,14 +112,24 @@ public class HelperBase {
     wd.findElement(locator).sendKeys(text);
   }
 
-  protected void writeHar() {
-    try {
-      String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
-      String time = timeRaw.replace(":", "-").replace(" ", "T");
-      proxyServer.getHar().writeTo(new File("results\\Test " + time + ".json"));
-    } catch (IOException e) {
-      e.printStackTrace();
+  protected String getIdDoc() { // Возможно переделаем на получение ID - return id;
+    String id = null;
+    String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
+    String time = timeRaw.replace(":", "-").replace(" ", "T");
+    List<HarEntry> entries = proxyServer.getHar().getLog().getEntries();
+    for (HarEntry entry : entries) {
+      if (entry.getRequest() != null && entry.getRequest().getUrl().contains("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/api/v1/nodes")) {
+        id = entry.getResponse().getContent().getText().replaceAll("\\D+","");
+        try (FileOutputStream fos = new FileOutputStream(new File("results\\Test " + time + ".json"))) {
+          byte[] buffer = id.getBytes();
+          fos.write(buffer, 0, buffer.length);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+
+      }
     }
+    return id;
   }
 
   protected void attach(By locator, File file) {
@@ -124,8 +142,13 @@ public class HelperBase {
     }
   }
 
-  protected void waitDoc() throws InterruptedException {
-    wd.manage().wait(10);
+  protected void waitDoc() {
+    try {
+      wd.manage().wait(30);
+    } catch (InterruptedException | IllegalMonitorStateException e) {
+      e.printStackTrace();
+    }
+
   }
 
   public boolean isElementPresent(By locator) {

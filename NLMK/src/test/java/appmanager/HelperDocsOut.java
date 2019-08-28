@@ -76,6 +76,7 @@ public class HelperDocsOut extends HelperDocs {
 
   public void fillDocRoute() {
     // Проверка оформления
+    //scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
 
     // Согласование руководителем инициатора
@@ -187,8 +188,8 @@ public class HelperDocsOut extends HelperDocs {
     }
 
     docsOutboundCashe = new DocsOutbound();
-    //List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
-    List<WebElement> rows = wd.findElements(By.partialLinkText("Имя будет сгенерировано автоматически"));
+    List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
+    //List<WebElement> rows = wd.findElements(By.partialLinkText("temp document name"));
     for (WebElement row : rows) {
       String nameDoc = row.getText();
       String linkDoc = row.getAttribute("href");
@@ -203,10 +204,11 @@ public class HelperDocsOut extends HelperDocs {
 
   public void initModification() {
     visibleOffAll(By.className("load-container binf-hidden")); // Тут нужен какой-то таймаут
-    DocOutboundData doc = all().iterator().next();
-    System.out.println(doc.getNameDoc());
-    System.out.println(doc.getLinkDoc());
-    click(By.linkText(doc.getNameDoc()));
+    openCard(getIdDoc());
+    //getIdDoc();
+    //DocOutboundData doc = all().iterator().next();
+    //System.out.println(doc.getNameDoc());
+    //System.out.println(doc.getLinkDoc());
   }
 
   public void attachFile() {
@@ -273,6 +275,21 @@ public class HelperDocsOut extends HelperDocs {
   }
 
   public void openRandomCard() {
-    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3655228");
+    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3651853");
+  }
+
+  public void openCard(String idDoc) {
+    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/" + idDoc);
+  }
+
+  public void startWorkflow() {
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Создать поручение'])[2]/preceding::button[1]"));
+
+    visibleOffAll(By.className("load-container binf-hidden"));
+    click(By.cssSelector("button.binf-btn.binf-btn-primary"));
+    visibleOffAll(By.className("load-container binf-hidden"));
+    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправить'])[1]/preceding::textarea[1]"), "Запуск! 3... 2... 1...");
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отмена'])[2]/preceding::button[1]"));
+    visibleOffAll(By.className("load-container binf-hidden"));
   }
 }

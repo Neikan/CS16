@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
+import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.mitm.manager.ImpersonatingMitmManager;
 import net.lightbody.bmp.proxy.CaptureType;
 import org.openqa.selenium.JavascriptExecutor;
@@ -54,17 +55,11 @@ public class ApplicationManager {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
+    helperSession = new HelperSession(this);
     helperDocs = new HelperDocs(this);
     helperDocsOut = new HelperDocsOut(this);
     helperNavigation = new HelperNavigation(this);
-    helperSession = new HelperSession(this);
     proxyServer.newHar("MyExample");
-
-     /* Alert Windowalert = wd.switchTo().alert() ; //Попытка отключить windows-запрос логина-пароля, неудачная
-    Windowalert.authenticateUsing(new UserAndPassword(_user_name,_password));
-    Windowalert.accept();
-    wd.switchTo().defaultContent() ;*/
   }
 
   public String getProperty(String key) {
@@ -83,8 +78,8 @@ public class ApplicationManager {
       if ("".equals(properties.getProperty("selenium.server"))) {
         if (browser.equals(BrowserType.FIREFOX)) {
           DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-          capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager"); // normal (document.readyState == complete), eager (document.readyState == interactive), none – вообще не ждать
           capabilities.setCapability(CapabilityType.PROXY, proxy);
+          capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "eager"); // normal (document.readyState == complete), eager (document.readyState == interactive), none – вообще не ждать
 
           FirefoxOptions options = new FirefoxOptions();
           options.merge(capabilities);
@@ -150,7 +145,22 @@ public class ApplicationManager {
         throw new RuntimeException("Cant start proxy-server on port: " + proxyServer.getPort(), e);
       }
     }
-    proxyServer.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT, CaptureType.RESPONSE_HEADERS);
+    //proxyServer.enableHarCaptureTypes(CaptureType.RESPONSE_CONTENT);
+    proxyServer.enableHarCaptureTypes(
+            //CaptureType.REQUEST_HEADERS,
+            //CaptureType.REQUEST_COOKIES,
+            //CaptureType.REQUEST_CONTENT,
+            //CaptureType.REQUEST_BINARY_CONTENT,
+
+            //CaptureType.RESPONSE_HEADERS,
+            //CaptureType.RESPONSE_COOKIES,
+            CaptureType.RESPONSE_CONTENT);
+            //CaptureType.RESPONSE_BINARY_CONTENT);
+    /*proxyServer.addResponseFilter((response, contents, messageInfo) -> {
+      if (messageInfo.getOriginalUrl().contains("nodes")) {
+        contents.setTextContents("nodes");
+      }
+    });*/
     return proxyServer;
   }
 
