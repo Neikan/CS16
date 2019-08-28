@@ -112,21 +112,24 @@ public class HelperBase {
     wd.findElement(locator).sendKeys(text);
   }
 
-  protected void writeHar() { // Возможно переделаем на получение ID - return id;
+  protected String getIdDoc() { // Возможно переделаем на получение ID - return id;
+    String id = null;
     String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
     String time = timeRaw.replace(":", "-").replace(" ", "T");
     List<HarEntry> entries = proxyServer.getHar().getLog().getEntries();
     for (HarEntry entry : entries) {
       if (entry.getRequest() != null && entry.getRequest().getUrl().contains("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/api/v1/nodes")) {
-        String text = entry.getResponse().getContent().getText();
+        id = entry.getResponse().getContent().getText().replaceAll("\\D+","");
         try (FileOutputStream fos = new FileOutputStream(new File("results\\Test " + time + ".json"))) {
-          byte[] buffer = text.getBytes();
+          byte[] buffer = id.getBytes();
           fos.write(buffer, 0, buffer.length);
         } catch (IOException e) {
           e.printStackTrace();
         }
+
       }
     }
+    return id;
   }
 
   protected void attach(By locator, File file) {

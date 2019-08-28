@@ -17,9 +17,4 @@ public class HelperDocs extends HelperBase {
     clickSimple(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отмена'])[1]/preceding::button[1]"));
     waitDoc();
   }
-
-  public void writesHar() {
-    writeHar();
-  }
-
 }

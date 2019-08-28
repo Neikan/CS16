@@ -204,11 +204,11 @@ public class HelperDocsOut extends HelperDocs {
 
   public void initModification() {
     visibleOffAll(By.className("load-container binf-hidden")); // Тут нужен какой-то таймаут
-    DocOutboundData doc = all().iterator().next();
-    System.out.println(doc.getNameDoc());
-    System.out.println(doc.getLinkDoc());
-    //click(By.linkText(doc.getNameDoc()));
-    openCard(doc.getLinkDoc());
+    openCard(getIdDoc());
+    //getIdDoc();
+    //DocOutboundData doc = all().iterator().next();
+    //System.out.println(doc.getNameDoc());
+    //System.out.println(doc.getLinkDoc());
   }
 
   public void attachFile() {
@@ -278,12 +278,13 @@ public class HelperDocsOut extends HelperDocs {
     wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3651853");
   }
 
-  public void openCard(String linkDoc) {
-    wd.get(linkDoc);
+  public void openCard(String idDoc) {
+    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/" + idDoc);
   }
 
   public void startWorkflow() {
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Создать поручение'])[1]/preceding::button[1]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Создать поручение'])[2]/preceding::button[1]"));
+
     visibleOffAll(By.className("load-container binf-hidden"));
     click(By.cssSelector("button.binf-btn.binf-btn-primary"));
     visibleOffAll(By.className("load-container binf-hidden"));

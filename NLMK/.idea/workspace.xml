@@ -420,22 +420,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
-          <line>287</line>
+          <line>288</line>
           <option name="timeStamp" value="171" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
-          <line>288</line>
+          <line>289</line>
           <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
-          <line>289</line>
+          <line>290</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/appmanager/HelperDocsOut.java</url>
-          <line>291</line>
+          <line>292</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -450,7 +450,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/tests/docsout/FillNewForm.java</url>
-          <line>25</line>
+          <line>22</line>
           <option name="timeStamp" value="184" />
         </line-breakpoint>
       </breakpoints>
