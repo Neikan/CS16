@@ -17,8 +17,12 @@ public class FillNewForm extends TestBase {
     app.docsout().docAccounting();
     app.docsout().fillDocAccounting();
     app.docsout().confirmAddDoc();
-    System.out.println("Stop");
+    System.out.println("Stop 1");
     app.docsout().initModification();
-    System.out.println("Stop");
+    System.out.println("Stop 2");
+    app.docs().writesHar();
+    //app.docsout().attachFile();
+    //app.docsout().startWorkflow();
+    System.out.println("Stop 3");
   }
 }

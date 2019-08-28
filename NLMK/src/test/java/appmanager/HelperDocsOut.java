@@ -77,7 +77,7 @@ public class HelperDocsOut extends HelperDocs {
   public void fillDocRoute() {
     // Проверка оформления
     //scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[2]/following::span[2]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Проверка оформления'])[1]/following::span[2]"));
 
     // Согласование руководителем инициатора
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласование руководителем инициатора'])[2]/following::span[2]"));
@@ -188,8 +188,8 @@ public class HelperDocsOut extends HelperDocs {
     }
 
     docsOutboundCashe = new DocsOutbound();
-    //List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
-    List<WebElement> rows = wd.findElements(By.partialLinkText("temp document name"));
+    List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
+    //List<WebElement> rows = wd.findElements(By.partialLinkText("temp document name"));
     for (WebElement row : rows) {
       String nameDoc = row.getText();
       String linkDoc = row.getAttribute("href");
@@ -207,7 +207,8 @@ public class HelperDocsOut extends HelperDocs {
     DocOutboundData doc = all().iterator().next();
     System.out.println(doc.getNameDoc());
     System.out.println(doc.getLinkDoc());
-    click(By.linkText(doc.getNameDoc()));
+    //click(By.linkText(doc.getNameDoc()));
+    openCard(doc.getLinkDoc());
   }
 
   public void attachFile() {
@@ -274,9 +275,11 @@ public class HelperDocsOut extends HelperDocs {
   }
 
   public void openRandomCard() {
-    //wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3655228");
     wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3651853");
+  }
 
+  public void openCard(String linkDoc) {
+    wd.get(linkDoc);
   }
 
   public void startWorkflow() {
