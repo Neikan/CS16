@@ -15,3 +15,5 @@ gradle-app.setting
 *.log
 *.class
 *.html
+
+NLMK/results/

@@ -89,8 +89,10 @@ public class ApplicationManager {
           DesiredCapabilities capabilities = DesiredCapabilities.chrome();
           capabilities.setCapability(CapabilityType.PROXY, proxy);
           capabilities.setCapability(CapabilityType.PAGE_LOAD_STRATEGY, "normal"); // eager не поддерживается в Chrome да и после решения проблемы с ожиданиями не факт, что нужна
+
           ChromeOptions options = new ChromeOptions();
           //options.addArguments("--disable-notifications"); // Попытка отключить windows-запрос логина-пароля, неудачная, т.к. опция с этим не срабатывает
+          options.addArguments("-–disable-blink-features=BlockCredentialedSubresources");
           options.merge(capabilities);
           wd = new ChromeDriver(options);
 

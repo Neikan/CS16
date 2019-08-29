@@ -45,6 +45,50 @@ public class HelperBase {
     actions.contextClick(wd.findElement(locator)).perform();
   }
 
+  protected void searchElem(String titleElem, By locator) {
+    if (wd.getPageSource().contains(titleElem)) {
+      wd.findElement(locator);
+    }
+  }
+
+  protected String searchE(By locator, String title) {
+    String str = null;
+    List<WebElement> elements = wd.findElements(locator);
+    for (WebElement elem : elements) {
+      if (elem.getAttribute("title").equals(title)) {
+        str = elem.getAttribute("for");
+        System.out.println(elem.getAttribute("title"));
+        System.out.println(elem.getAttribute("for"));
+      }
+    }
+    return str;
+  }
+
+  protected void searchN(By locator, String title) {
+    WebElement webElement = wd.findElement(By.id("csui-dmbooleanfield-" + searchE(locator, title)));
+    //webElement.findElement("")
+  }
+
+  protected void clickSwitch(String title) {
+    wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"))
+            .findElement(By.className("binf-switch-container"))
+            .click();
+  }
+
+      /*
+    WebElement modal = wd.findElement(By.xpath("//div[@class='binf-modal-body']"));
+    WebElement elemFirst = modal.findElement(By.xpath(".//label[@title='" + title + "']"));
+    String id = modal.findElement(By.xpath(".//label[@title='" + title + "']")).getAttribute("for");
+    //String id = elemFirst.getAttribute("for");
+    WebElement elemSecond  = elemFirst.findElement(By.xpath("//div[@id='csui-dmbooleanfield-" + id +"']"));
+    WebElement elemThird = elemSecond.findElement(By.className("binf-switch-container"));
+    elemThird.click();*/
+
   protected void scroll(By locator) {
     Actions actions = new Actions(wd);
     actions.moveToElement(wd.findElement(locator));
@@ -119,7 +163,7 @@ public class HelperBase {
     List<HarEntry> entries = proxyServer.getHar().getLog().getEntries();
     for (HarEntry entry : entries) {
       if (entry.getRequest() != null && entry.getRequest().getUrl().contains("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/api/v1/nodes")) {
-        id = entry.getResponse().getContent().getText().replaceAll("\\D+","");
+        id = entry.getResponse().getContent().getText().replaceAll("\\D+", "");
         try (FileOutputStream fos = new FileOutputStream(new File("results\\Test " + time + ".json"))) {
           byte[] buffer = id.getBytes();
           fos.write(buffer, 0, buffer.length);
