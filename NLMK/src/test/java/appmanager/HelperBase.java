@@ -45,12 +45,6 @@ public class HelperBase {
     actions.contextClick(wd.findElement(locator)).perform();
   }
 
-  protected void searchElem(String titleElem, By locator) {
-    if (wd.getPageSource().contains(titleElem)) {
-      wd.findElement(locator);
-    }
-  }
-
   protected String searchE(By locator, String title) {
     String str = null;
     List<WebElement> elements = wd.findElements(locator);
@@ -64,30 +58,107 @@ public class HelperBase {
     return str;
   }
 
-  protected void searchN(By locator, String title) {
-    WebElement webElement = wd.findElement(By.id("csui-dmbooleanfield-" + searchE(locator, title)));
-    //webElement.findElement("")
-  }
-
-  protected void clickSwitch(String title) {
-    wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+  protected WebElement fieldSwitch(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
             .findElement(By.xpath(".//label[@title='" + title + "']"))
             .findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
                     .findElement(By.xpath(".//label[@title='" + title + "']"))
                     .getAttribute("for") + "']"))
-            .findElement(By.className("binf-switch-container"))
-            .click();
+            .findElement(By.className("binf-switch-container"));
+    return webElement;
   }
 
-      /*
-    WebElement modal = wd.findElement(By.xpath("//div[@class='binf-modal-body']"));
-    WebElement elemFirst = modal.findElement(By.xpath(".//label[@title='" + title + "']"));
-    String id = modal.findElement(By.xpath(".//label[@title='" + title + "']")).getAttribute("for");
-    //String id = elemFirst.getAttribute("for");
-    WebElement elemSecond  = elemFirst.findElement(By.xpath("//div[@id='csui-dmbooleanfield-" + id +"']"));
-    WebElement elemThird = elemSecond.findElement(By.className("binf-switch-container"));
-    elemThird.click();*/
+  protected WebElement fieldText(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//input[@id='csui-dmtextfield-"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"));
+    return webElement;
+  }
+
+  protected WebElement fieldTextArea(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//textarea[@id='csui-dmtextareafield-"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"));
+    return webElement;
+  }
+
+  protected WebElement fieldInteger(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//input[@id='csui-integerfield-"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"));
+    return webElement;
+  }
+
+  protected WebElement fieldLookupNSIFor(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//div[@id='csui-dmreffield-"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"))
+            .findElement(By.xpath(".//input[@type='search']"));
+    return webElement;
+  }
+
+  protected WebElement fieldLookupNSIId(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//input[@type='search' and @aria-labelledby='"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("id") + "']"));
+    return webElement;
+  }
+
+  protected WebElement fieldLookupUserId(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//input[@aria-label='" + title + "' and @aria-labelledby='"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("id") + "']"));
+    return webElement;
+  }
+
+  protected WebElement fieldLookupUserFor(String title) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath("//input[@type='text' and @id='"
+                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .getAttribute("for") + "']"));
+    return webElement;
+  }
+
+  protected void type(WebElement webElement, String text) {
+    click(webElement);
+    webElement.clear();
+    webElement.sendKeys(text);
+  }
+
+  protected void clear(WebElement webElement) {
+    webElement.clear();
+  }
+
+  protected void click(WebElement webElement) {
+    webElement.click();
+  }
+
+  protected void scroll(WebElement webElement) {
+    Actions actions = new Actions(wd);
+    actions.moveToElement(webElement);
+    actions.perform();
+  }
 
   protected void scroll(By locator) {
     Actions actions = new Actions(wd);

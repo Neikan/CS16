@@ -36,65 +36,38 @@ public class HelperDocsOut extends HelperDocs {
   }
 
   public void fillDocDetails() {
-
     visibleOffAll(By.className("loader"));
 
-    // Вид документа
-    // Способ 1
-    type(By.xpath("(//input[@type='search'])[13]"), "Письмо");
+    type(fieldLookupNSIFor("Вид документа"), "Письмо"); // Вид документа
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид документа'])[2]/following::strong[1]"));
 
-    // Способ 2
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид документа'])[2]/following::span[2]"));
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='outgoing@letter'])[1]/following::td[1]"));
-    //clickWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Please, wait...'])[1]/following::button[1]"));
+    type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis()))); // Заголовок к тексту
 
-    // Заголовок к тексту
-    type(By.xpath("//div[3]/div/div/div/div/div/div/textarea"), String.valueOf(new Timestamp(System.currentTimeMillis())));
-
-    // Ограничение доступа
-    type(By.xpath("(//input[@type='search'])[14]"), "КТ");
+    type(fieldLookupNSIId("Ограничение доступа"), "КТ"); // Ограничение доступа
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ограничение доступа'])[1]/following::li[1]"));
 
-    // Подписант
-    type(By.cssSelector("#alpaca104"), "Рабовский");
+    type(fieldLookupUserId("Подписант"), "Рабовский"); // Подписант
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Рабовский Илья Александрович'])[1]/following::span[1]"));
 
-    // Внешний адресат
-    type(By.xpath("(//input[@type='search'])[15]"), "ООО \"Матрёшка\"");
+    type(fieldLookupNSIFor("Организация внешнего адресата"), "ООО \"Матрёшка\""); // Внешний адресат
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация внешнего адресата'])[2]/following::td[3]"));
 
-    //Способ отправки внешнему адресату
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Способ отправки внешнему адресату'])[2]/following::input[2]"), "Электро");
+    type(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Электро"); //Способ отправки внешнему адресату
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Способ отправки внешнему адресату'])[2]/following::p[1]"));
 
-    // Внутренний адресат
-    scroll(By.cssSelector("#alpaca167"));
-    type(By.cssSelector("#alpaca167"), "Кутузов");
+    scroll(fieldLookupUserFor("Адресат внутренний")); // Внутренний адресат
+    type(fieldLookupUserFor("Адресат внутренний"), "Кутузов");
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Главнокомандующий русской армией'])[1]/following::span[1]"));
   }
 
   public void fillDocRoute() {
-    clickSwitch("Проверка оформления"); //Флаг "Проверка оформления"
-    clickSwitch("Согласование руководителем инициатора"); // Флаг "Согласование руководителем инициатора"
-    clickSwitch("Согласование юристами"); // Флаг "Согласование юристами"
+    fieldSwitch("Проверка оформления"); //Флаг "Проверка оформления"
+    fieldSwitch("Согласование руководителем инициатора"); // Флаг "Согласование руководителем инициатора"
+    fieldSwitch("Согласование юристами"); // Флаг "Согласование юристами"
 
     // Нормоконтролер - не заполняем пока что
 
     // Согласующие
-    // Способ 1
-    //type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласующие'])[2]/following::input[1]"), "Мягков");
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Мягков Александр Николаевич'])[1]/following::span[1]"));
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Мягков Александр Николаевич'])[1]/following::span[1]"));
-
-    //click(By.xpath("//div[5]/div/div/div/div[2]/div/button[2]/i"));
-    //type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласующие'])[2]/following::input[2]"), "Сыромятников");
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='УПРАВЛЕНИЕ ПО ОПЕРАТИВНОМУ ПЛАНИРОВАНИЮ'])[1]/following::span[1]"));
-
-    //type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласующие'])[2]/following::input[3]"), "Гахова");
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='ЕГ'])[1]/following::div[1]"));
-
-    // Способ 2
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласующие'])[2]/following::span[2]"));
 
     type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Мягков");
@@ -113,58 +86,39 @@ public class HelperDocsOut extends HelperDocs {
 
     // Отправитель
     // Способ 1
-    //clickWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
     scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"));
-    //visibleOff(By.xpath("//*[@id=\"templates\"]/div[1]/table/tbody/tr[2]/td[2]"));
     type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Рокоссовский");
     sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::td[15]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Закрыть'])[1]/preceding::button[1]"));
-
     // Способ 2
-    //type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::input[1]"), "Рокоссовский");
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::div[18]"));
+    //typeLookupWithForforUser("Отправитель", "Рокоссовский"); - допилить выбор пользователя
 
-    // Приоритет
-    // Способ 1
-    //typeWait(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[2]/following::input[2]"), "Высокий"); - не подходит из-за скрытого поля
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[2]/following::li[1]"));
-
-    //Способ 2
+    // Приоритет - нельзя очистить поле, нужно через справочник выбирать только
+    //clearLookupWithFor("Приоритет");
+    //typeLookupWithFor("Приоритет", "Высокий");
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[2]/following::span[2]"));
-    //type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[4]/following::input[1]"), "Высокий");
-    //sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[4]/following::input[1]"), Keys.ENTER);
-    //click(By.xpath("//div[2]/table/tbody/tr/td"));
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Пожалуйста, подождите...'])[1]/following::button[1]"));
     doubleClick(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обычный'])[2]/following::td[2]"));
-    //click(By.xpath("//*[@id=\"refsadmin-container-panel\"]/div[2]/table/tbody/tr[3]/td[1]")); - проверить
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Высокий'])[2]/following::td[2]"));
-    //click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='>>'])[1]/following::button[1]"));
 
     // Обоснование приоритета
-    scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обоснование приоритета'])[1]/following::textarea[1]"));
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обоснование приоритета'])[1]/following::textarea[1]"), "Казнить, нельзя помиловать!");
+    //scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обоснование приоритета'])[1]/following::textarea[1]"));
+    scroll(fieldTextArea("Обоснование приоритета"));
+    type(fieldTextArea("Обоснование приоритета"), "Казнить, нельзя помиловать!");
   }
 
   public void fillDocAccounting() {
-    //Количество листов документа
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Количество листов документа'])[2]/following::input[1]"), "10");
+    type(fieldInteger("Количество листов документа"),  "10"); //Количество листов документа
+    type(fieldInteger("Количество листов приложений"), "20"); //Количество листов приложений
 
-    //Количество листов приложений
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Количество листов приложений'])[2]/following::input[1]"), "5");
-
-    //Вид носителя
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид носителя'])[2]/following::input[2]"), "Бумажный");
+    type(fieldLookupNSIFor("Вид носителя"), "Бумажный"); //Вид носителя
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид носителя'])[2]/following::p[1]"));
 
-    //Рубрика
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Рубрика'])[2]/following::input[2]"), "Рубрика");
+    type(fieldLookupNSIId("Рубрика"), "Рубрика"); //Рубрика
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Рубрика'])[2]/following::li[1]"));
 
-    //В ответ на (номер)
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (номер)'])[2]/following::input[1]"));
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (номер)'])[2]/following::input[1]"), "2333");
+    type(fieldText("Номер почтового отправления"), "300"); //Номер почтового отправления
+    type(fieldText("В ответ на (номер)"), "200"); //В ответ на (номер)
 
     //В ответ на (дата)
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::span[2]"));
