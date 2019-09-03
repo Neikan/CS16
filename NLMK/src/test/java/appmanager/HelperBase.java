@@ -4,6 +4,7 @@ import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.HarEntry;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,8 +32,8 @@ public class HelperBase {
     wait.until(elementToBeClickable(locator)).click();
   }
 
-  protected void clickSimple(By locator) {
-    wd.findElement(locator).click();
+  protected void click(WebElement webElement) {
+    webElement.click();
   }
 
   protected void doubleClick(By locator) {
@@ -58,84 +59,84 @@ public class HelperBase {
     return str;
   }
 
-  protected WebElement fieldSwitch(String title) {
+  protected WebElement fieldSwitch(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"))
             .findElement(By.className("binf-switch-container"));
     return webElement;
   }
 
-  protected WebElement fieldText(String title) {
+  protected WebElement fieldText(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//input[@id='csui-dmtextfield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"));
     return webElement;
   }
 
-  protected WebElement fieldTextArea(String title) {
+  protected WebElement fieldTextArea(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//textarea[@id='csui-dmtextareafield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"));
     return webElement;
   }
 
-  protected WebElement fieldInteger(String title) {
+  protected WebElement fieldInteger(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//input[@id='csui-integerfield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"));
     return webElement;
   }
 
-  protected WebElement fieldLookupNSIFor(String title) {
+  protected WebElement fieldLookupNSIFor(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//div[@id='csui-dmreffield-"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"))
             .findElement(By.xpath(".//input[@type='search']"));
     return webElement;
   }
 
-  protected WebElement fieldLookupNSIId(String title) {
+  protected WebElement fieldLookupNSIId(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//input[@type='search' and @aria-labelledby='"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("id") + "']"));
     return webElement;
   }
 
-  protected WebElement fieldLookupUserId(String title) {
+  protected WebElement fieldLookupUserId(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
-            .findElement(By.xpath("//input[@aria-label='" + title + "' and @aria-labelledby='"
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
+            .findElement(By.xpath("//input[@aria-label='" + titleField + "' and @aria-labelledby='"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("id") + "']"));
     return webElement;
   }
 
-  protected WebElement fieldLookupUserFor(String title) {
+  protected WebElement fieldLookupUserFor(String titleField) {
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + title + "']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
             .findElement(By.xpath("//input[@type='text' and @id='"
                     + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + title + "']"))
+                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
                     .getAttribute("for") + "']"));
     return webElement;
   }
@@ -148,10 +149,6 @@ public class HelperBase {
 
   protected void clear(WebElement webElement) {
     webElement.clear();
-  }
-
-  protected void click(WebElement webElement) {
-    webElement.click();
   }
 
   protected void scroll(WebElement webElement) {
@@ -241,7 +238,6 @@ public class HelperBase {
         } catch (IOException e) {
           e.printStackTrace();
         }
-
       }
     }
     return id;
@@ -257,18 +253,75 @@ public class HelperBase {
     }
   }
 
-  protected void waitDoc() {
+  protected void waitElem() {
     try {
       wd.manage().wait(30);
     } catch (InterruptedException | IllegalMonitorStateException e) {
       e.printStackTrace();
     }
+  }
 
+  protected void autoComplete(String titleField, String text) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"));
+    try {
+      while (!isElementPresent(webElement, By.xpath("//strong[text()[contains(.,'" + text + "')]]"))) {
+        wait(5);
+      }
+      click(webElement.findElement(By.xpath("//strong[text()[contains(.,'" + text + "')]]")));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected void autoCompleteUser(String titleField, String text) {
+    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"));
+    try {
+      while (!isElementPresent(webElement, By.xpath("//span[text()[contains(.,'" + text + "')]]"))) {
+        wait(5);
+      }
+      WebElement webElem = wd.findElement(By.xpath("//span[text()[contains(.,'" + text + "')]]"));
+      if (webElem.getText().contains(text)) {
+        click(webElem);
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected void buttonAddNewDoc(String text) {
+    wd.findElement(By.xpath("//button[@class='binf-btn binf-btn-primary cs-add-button csui-acc-tab-region csui-acc-focusable-active']"));
+  }
+
+  protected void buttonCancelNewDoc() {
+    wd.findElement(By.xpath("//button[@class='binf-btn binf-btn-default csui-acc-tab-region csui-acc-focusable-active']"));
+  }
+
+  protected WebElement button(String tabIndex, String textButton) {
+    WebElement webElement = null;
+    List<WebElement> elements = wd.findElements(By.xpath("//button[@tabindex='" + tabIndex + "']"));
+    for (WebElement elem : elements) {
+      if (elem.getText().equals(textButton)) {
+        webElement = elem;
+        break;
+      }
+    }
+    return webElement;
   }
 
   public boolean isElementPresent(By locator) {
     try {
       wd.findElement(locator);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
+
+  public boolean isElementPresent(WebElement webElement, By locator) {
+    try {
+      webElement.findElement(locator);
       return true;
     } catch (NoSuchElementException e) {
       return false;

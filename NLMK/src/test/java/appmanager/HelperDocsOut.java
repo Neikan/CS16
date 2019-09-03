@@ -39,31 +39,31 @@ public class HelperDocsOut extends HelperDocs {
     visibleOffAll(By.className("loader"));
 
     type(fieldLookupNSIFor("Вид документа"), "Письмо"); // Вид документа
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид документа'])[2]/following::strong[1]"));
+    autoComplete("Вид документа", "Письмо");
 
     type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis()))); // Заголовок к тексту
 
     type(fieldLookupNSIId("Ограничение доступа"), "КТ"); // Ограничение доступа
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ограничение доступа'])[1]/following::li[1]"));
+    autoComplete("Ограничение доступа", "КТ");
 
     type(fieldLookupUserId("Подписант"), "Рабовский"); // Подписант
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Рабовский Илья Александрович'])[1]/following::span[1]"));
+    autoCompleteUser("Подписант", "Рабовский");
 
     type(fieldLookupNSIFor("Организация внешнего адресата"), "ООО \"Матрёшка\""); // Внешний адресат
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация внешнего адресата'])[2]/following::td[3]"));
+    autoComplete("Организация внешнего адресата", "ООО \"Матрёшка\"");
 
     type(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Электро"); //Способ отправки внешнему адресату
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Способ отправки внешнему адресату'])[2]/following::p[1]"));
+    autoComplete("Способ отправки внешнему адресату", "Электро");
 
     scroll(fieldLookupUserFor("Адресат внутренний")); // Внутренний адресат
     type(fieldLookupUserFor("Адресат внутренний"), "Кутузов");
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Главнокомандующий русской армией'])[1]/following::span[1]"));
+    autoCompleteUser("Адресат внутренний", "Кутузов");
   }
 
   public void fillDocRoute() {
-    fieldSwitch("Проверка оформления"); //Флаг "Проверка оформления"
-    fieldSwitch("Согласование руководителем инициатора"); // Флаг "Согласование руководителем инициатора"
-    fieldSwitch("Согласование юристами"); // Флаг "Согласование юристами"
+    click(fieldSwitch("Проверка оформления")); //Флаг "Проверка оформления"
+    click(fieldSwitch("Согласование руководителем инициатора")); // Флаг "Согласование руководителем инициатора"
+    click(fieldSwitch("Согласование юристами")); // Флаг "Согласование юристами"
 
     // Нормоконтролер - не заполняем пока что
 
@@ -102,7 +102,6 @@ public class HelperDocsOut extends HelperDocs {
     doubleClick(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обычный'])[2]/following::td[2]"));
 
     // Обоснование приоритета
-    //scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обоснование приоритета'])[1]/following::textarea[1]"));
     scroll(fieldTextArea("Обоснование приоритета"));
     type(fieldTextArea("Обоснование приоритета"), "Казнить, нельзя помиловать!");
   }
@@ -112,10 +111,10 @@ public class HelperDocsOut extends HelperDocs {
     type(fieldInteger("Количество листов приложений"), "20"); //Количество листов приложений
 
     type(fieldLookupNSIFor("Вид носителя"), "Бумажный"); //Вид носителя
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вид носителя'])[2]/following::p[1]"));
+    autoComplete("Вид носителя", "Бумажный");
 
-    type(fieldLookupNSIId("Рубрика"), "Рубрика"); //Рубрика
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Рубрика'])[2]/following::li[1]"));
+    type(fieldLookupNSIId("Рубрика"), "Рубрика а"); //Рубрика
+    autoComplete("Вид носителя", "Рубрика а");
 
     type(fieldText("Номер почтового отправления"), "300"); //Номер почтового отправления
     type(fieldText("В ответ на (номер)"), "200"); //В ответ на (номер)
