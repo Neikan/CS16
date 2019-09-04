@@ -4,7 +4,6 @@ import model.DocOutboundData;
 import model.DocsOutbound;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
@@ -36,94 +35,56 @@ public class HelperDocsOut extends HelperDocs {
   }
 
   public void fillDocDetails() {
-    visibleOffAll(By.className("loader"));
+    visibleOffAll(By.className("loader")); // Это тоже переделать!
+    //typeFieldWithAutoComplete(fieldLookupNSIFor("Вид документа"),"Вид документа", "Письмо");
 
-    type(fieldLookupNSIFor("Вид документа"), "Письмо"); // Вид документа
-    autoComplete("Вид документа", "Письмо");
+    typeFieldWithAutoComplete(fieldLookupNSIForExperimental("Вид документа"),"Вид документа", "Письмо");
 
-    type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis()))); // Заголовок к тексту
-
-    type(fieldLookupNSIId("Ограничение доступа"), "КТ"); // Ограничение доступа
-    autoComplete("Ограничение доступа", "КТ");
-
-    type(fieldLookupUserId("Подписант"), "Рабовский"); // Подписант
-    autoCompleteUser("Подписант", "Рабовский");
-
-    type(fieldLookupNSIFor("Организация внешнего адресата"), "ООО \"Матрёшка\""); // Внешний адресат
-    autoComplete("Организация внешнего адресата", "ООО \"Матрёшка\"");
-
-    type(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Электро"); //Способ отправки внешнему адресату
-    autoComplete("Способ отправки внешнему адресату", "Электро");
-
-    scroll(fieldLookupUserFor("Адресат внутренний")); // Внутренний адресат
-    type(fieldLookupUserFor("Адресат внутренний"), "Кутузов");
-    autoCompleteUser("Адресат внутренний", "Кутузов");
+    type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis())));
+    typeFieldWithAutoComplete(fieldLookupNSIId("Ограничение доступа"),"Ограничение доступа", "КТ");
+    typeFieldWithAutoCompleteUser(fieldLookupUserId("Подписант"), "Подписант", "Рабовский");
+    typeFieldWithAutoComplete(fieldLookupNSIFor("Организация внешнего адресата"),"Организация внешнего адресата", "ООО \"Матрёшка\"");
+    typeFieldWithAutoComplete(fieldLookupNSIFor("Способ отправки внешнему адресату"),"Способ отправки внешнему адресату", "Электро");
+    scroll(fieldLookupUserFor("Адресат внутренний"));
+    typeFieldWithAutoCompleteUser(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", "Кутузов");
   }
 
   public void fillDocRoute() {
-    click(fieldSwitch("Проверка оформления")); //Флаг "Проверка оформления"
-    click(fieldSwitch("Согласование руководителем инициатора")); // Флаг "Согласование руководителем инициатора"
-    click(fieldSwitch("Согласование юристами")); // Флаг "Согласование юристами"
+    click(fieldSwitch("Проверка оформления"));
+    click(fieldSwitch("Согласование руководителем инициатора"));
+    click(fieldSwitch("Согласование юристами"));
 
     // Нормоконтролер - не заполняем пока что
 
-    // Согласующие
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Согласующие'])[2]/following::span[2]"));
+    openLookupUser("Согласующие");
+    typeLookupSeveralUser("Мягков", "3");
+    typeLookupSeveralUser("Сыромятников", "3");
+    typeLookupSeveralUser("Гахова", "3");
+    clickButtonFooter("Сохранить");
 
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Мягков");
-    sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
-    click(By.xpath("//div[2]/table/tbody/tr/td/input"));
+    openLookupUser("Отправитель");
+    typeLookupForeverAloneUser("Рокоссовский", "2");
+    clickButtonFooter("Сохранить");
 
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Сыромятников");
-    sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
-    click(By.xpath("//div[2]/table/tbody/tr/td/input"));
+    openLookupNSI("Приоритет");
+    doubleClick(getCellLookupTable("Высокий"));
 
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Гахова");
-    sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
-    click(By.xpath("//div[2]/table/tbody/tr/td/input"));
-
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Закрыть'])[1]/preceding::button[1]"));
-
-    // Отправитель
-    // Способ 1
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отправитель'])[2]/following::span[2]"));
-    scroll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"));
-    type(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), "Рокоссовский");
-    sendKey(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::input[2]"), Keys.ENTER);
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Организация'])[1]/following::td[15]"));
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Закрыть'])[1]/preceding::button[1]"));
-    // Способ 2
-    //typeLookupWithForforUser("Отправитель", "Рокоссовский"); - допилить выбор пользователя
-
-    // Приоритет - нельзя очистить поле, нужно через справочник выбирать только
-    //clearLookupWithFor("Приоритет");
-    //typeLookupWithFor("Приоритет", "Высокий");
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Приоритет'])[2]/following::span[2]"));
-    doubleClick(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Обычный'])[2]/following::td[2]"));
-
-    // Обоснование приоритета
     scroll(fieldTextArea("Обоснование приоритета"));
     type(fieldTextArea("Обоснование приоритета"), "Казнить, нельзя помиловать!");
   }
 
   public void fillDocAccounting() {
-    type(fieldInteger("Количество листов документа"),  "10"); //Количество листов документа
-    type(fieldInteger("Количество листов приложений"), "20"); //Количество листов приложений
+    type(fieldInteger("Количество листов документа"), "10");
+    type(fieldInteger("Количество листов приложений"), "20");
+    typeFieldWithAutoComplete(fieldLookupNSIFor("Вид носителя"), "Вид носителя", "Бумажный");
+    typeFieldWithAutoComplete(fieldLookupNSIId("Рубрика"), "Рубрика", "Рубрика а");
+    type(fieldText("Номер почтового отправления"), "300");
+    type(fieldText("В ответ на (номер)"), "200");
+    type(fieldDateTextFor("В ответ на (дата)"), "03.09.2019"); // Способ заполнения даты вводом текстового значения
 
-    type(fieldLookupNSIFor("Вид носителя"), "Бумажный"); //Вид носителя
-    autoComplete("Вид носителя", "Бумажный");
-
-    type(fieldLookupNSIId("Рубрика"), "Рубрика а"); //Рубрика
-    autoComplete("Вид носителя", "Рубрика а");
-
-    type(fieldText("Номер почтового отправления"), "300"); //Номер почтового отправления
-    type(fieldText("В ответ на (номер)"), "200"); //В ответ на (номер)
-
-    //В ответ на (дата)
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::span[2]"));
+    /*click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::span[2]"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='вс'])[1]/following::td[8]"));
-
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::button[2]"));
+    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::button[2]"));*/
 
   }
 
@@ -136,26 +97,21 @@ public class HelperDocsOut extends HelperDocs {
 
     docsOutboundCashe = new DocsOutbound();
     List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
-    //List<WebElement> rows = wd.findElements(By.partialLinkText("temp document name"));
     for (WebElement row : rows) {
       String nameDoc = row.getText();
       String linkDoc = row.getAttribute("href");
       docsOutboundCashe.add(new DocOutboundData().withNameDoc(nameDoc).withLinkDoc(linkDoc));
     }
-      return new DocsOutbound(docsOutboundCashe);
+    return new DocsOutbound(docsOutboundCashe);
   }
 
   public void initDocOutboundModification(int id) {
-    click(By.xpath("//a[@href='http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/"+ id +"']"));
+    click(By.xpath("//a[@href='http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/" + id + "']"));
   }
 
   public void initModification() {
     visibleOffAll(By.className("load-container binf-hidden")); // Тут нужен какой-то таймаут
     openCard(getIdDoc());
-    //getIdDoc();
-    //DocOutboundData doc = all().iterator().next();
-    //System.out.println(doc.getNameDoc());
-    //System.out.println(doc.getLinkDoc());
   }
 
   public void attachFile() {
@@ -170,10 +126,10 @@ public class HelperDocsOut extends HelperDocs {
     visibleOffAll(By.className("load-container binf-hidden"));
     click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Реквизиты'])[1]/following::span[1]"));
     click(By.cssSelector("span.icon.icon-toolbarAdd"));
-    ((JavascriptExecutor)wd).executeScript(
+    ((JavascriptExecutor) wd).executeScript(
             "HTMLInputElement.prototype.click = function() {                     " +
                     "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
-                    "};                                                                  " );
+                    "};                                                                  ");
     click(By.linkText("Документ"));
     //attach(By.xpath("//input[@type='file']"), docOut.getFile());
     attach(By.xpath("//input[@type='file']"), fileXLS);
@@ -181,40 +137,40 @@ public class HelperDocsOut extends HelperDocs {
     visibleOffAll(By.className("load-container binf-hidden"));
 
     click(By.cssSelector("span.icon.icon-toolbarAdd"));
-    ((JavascriptExecutor)wd).executeScript(
+    ((JavascriptExecutor) wd).executeScript(
             "HTMLInputElement.prototype.click = function() {                     " +
                     "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
-                    "};                                                                  " );
+                    "};                                                                  ");
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), fileXLSX);
     visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
     visibleOffAll(By.className("load-container binf-hidden"));
 
     click(By.cssSelector("span.icon.icon-toolbarAdd"));
-    ((JavascriptExecutor)wd).executeScript(
+    ((JavascriptExecutor) wd).executeScript(
             "HTMLInputElement.prototype.click = function() {                     " +
                     "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
-                    "};                                                                  " );
+                    "};                                                                  ");
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), filePDF);
     visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
     visibleOffAll(By.className("load-container binf-hidden"));
 
     click(By.cssSelector("span.icon.icon-toolbarAdd"));
-    ((JavascriptExecutor)wd).executeScript(
+    ((JavascriptExecutor) wd).executeScript(
             "HTMLInputElement.prototype.click = function() {                     " +
                     "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
-                    "};                                                                  " );
+                    "};                                                                  ");
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), fileDOC);
     visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));
     visibleOffAll(By.className("load-container binf-hidden"));
 
     click(By.cssSelector("span.icon.icon-toolbarAdd"));
-    ((JavascriptExecutor)wd).executeScript(
+    ((JavascriptExecutor) wd).executeScript(
             "HTMLInputElement.prototype.click = function() {                     " +
                     "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
-                    "};                                                                  " );
+                    "};                                                                  ");
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), fileDOCX);
     visibleOffAll(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Ожидание'])[1]/preceding::div[6]"));

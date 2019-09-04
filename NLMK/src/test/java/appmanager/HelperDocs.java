@@ -14,9 +14,7 @@ public class HelperDocs extends HelperBase {
   }
 
   public void confirmAddDoc() {
-    //clickSimple(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Отмена'])[1]/preceding::button[1]"));
-    //click(By.xpath("//div[@class='binf-modal-footer']"));
-    click(button("0", "Добавить"));
-    waitElem();
+    clickButtonFooter("Добавить");
+    waitElem(30);
   }
 }
