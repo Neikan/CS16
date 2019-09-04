@@ -36,10 +36,7 @@ public class HelperDocsOut extends HelperDocs {
 
   public void fillDocDetails() {
     visibleOffAll(By.className("loader")); // Это тоже переделать!
-    //typeFieldWithAutoComplete(fieldLookupNSIFor("Вид документа"),"Вид документа", "Письмо");
-
-    typeFieldWithAutoComplete(fieldLookupNSIForExperimental("Вид документа"),"Вид документа", "Письмо");
-
+    typeFieldWithAutoComplete(fieldLookupNSIFor("Вид документа"),"Вид документа", "Письмо");
     type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis())));
     typeFieldWithAutoComplete(fieldLookupNSIId("Ограничение доступа"),"Ограничение доступа", "КТ");
     typeFieldWithAutoCompleteUser(fieldLookupUserId("Подписант"), "Подписант", "Рабовский");
@@ -80,12 +77,7 @@ public class HelperDocsOut extends HelperDocs {
     typeFieldWithAutoComplete(fieldLookupNSIId("Рубрика"), "Рубрика", "Рубрика а");
     type(fieldText("Номер почтового отправления"), "300");
     type(fieldText("В ответ на (номер)"), "200");
-    type(fieldDateTextFor("В ответ на (дата)"), "03.09.2019"); // Способ заполнения даты вводом текстового значения
-
-    /*click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::span[2]"));
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='вс'])[1]/following::td[8]"));
-    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='В ответ на (дата)'])[2]/following::button[2]"));*/
-
+    type(fieldDateTextFor("В ответ на (дата)"), "03.09.2019");
   }
 
   private DocsOutbound docsOutboundCashe = null;

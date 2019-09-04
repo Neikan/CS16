@@ -29,118 +29,62 @@ public class HelperBase {
   // Методы определения типов полей
 
   protected WebElement fieldSwitch(String titleField) { // Флаг
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"))
+    return wd.findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
+            + getAttribute(titleField, "for") + "']"))
             .findElement(By.className("binf-switch-container"));
-    return webElement;
   }
 
   protected WebElement fieldText(String titleField) { // Однострочный текст
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//input[@id='csui-dmtextfield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//input[@id='csui-dmtextfield-"
+            + getAttribute(titleField, "for") + "']"));
   }
 
   protected WebElement fieldTextArea(String titleField) { // Многострочный текст
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//textarea[@id='csui-dmtextareafield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//textarea[@id='csui-dmtextareafield-"
+            + getAttribute(titleField, "for") + "']"));
   }
 
   protected WebElement fieldInteger(String titleField) { // Числовое поле
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//input[@id='csui-integerfield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//input[@id='csui-integerfield-"
+            + getAttribute(titleField, "for") + "']"));
   }
 
-  /*
   protected WebElement fieldLookupNSIFor(String titleField) { // Поле выбора данных из справочника по alpacaFOR
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//div[@id='csui-dmreffield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"))
-            .findElement(By.xpath(".//input[@type='search']"));
-    return webElement;
-  } */
-
-  protected WebElement fieldLookupNSIForExperimental(String titleField) { // Поле выбора данных из справочника по alpacaFOR
-    return wd.findElement(By.xpath("//div[@id='csui-dmreffield-" + getAttribute(titleField, "for") + "']"))
+    return wd.findElement(By.xpath("//div[@id='csui-dmreffield-"
+            + getAttribute(titleField, "for") + "']"))
             .findElement(By.xpath(".//input[@type='search']"));
   }
 
   protected WebElement fieldLookupNSIId(String titleField) { // Поле выбора данных из справочника по alpacaID
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//input[@type='search' and @aria-labelledby='"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("id") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//input[@type='search' and @aria-labelledby='"
+            + getAttribute(titleField, "id") + "']"));
   }
 
   protected WebElement fieldDateTextFor(String titleField) { // Поле даты как текста по alpacaFOR
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//div[@id='csui-dmdatefield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"))
+    return wd.findElement(By.xpath("//div[@id='csui-dmdatefield-"
+            + getAttribute(titleField, "for") + "']"))
             .findElement(By.xpath(".//input[@type='text']"));
-    return webElement;
   }
 
   protected WebElement fieldDateCalendarFor(String titleField) { // Поле даты из календаря по alpacaFOR
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//div[@id='csui-dmdatefield-"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"))
-            .findElement(By.xpath(".//span[@class='icon-date_picker ']"));
-    return webElement;
+    return wd.findElement(By.xpath("//div[@id='csui-dmdatefield-"
+            + getAttribute(titleField, "for")
+            + "']/.//span[@class='icon-date_picker ']"));
   }
 
   protected WebElement fieldLookupUserId(String titleField) { // Поле выбора пользователя из справочника по alpacaID
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//input[@aria-label='" + titleField + "' and @aria-labelledby='"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("id") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//input[@aria-label='" + titleField + "' and @aria-labelledby='"
+            + getAttribute(titleField, "id") + "']"));
   }
 
   protected WebElement fieldLookupUserFor(String titleField) { // Поле выбора пользователя из справочника по alpacaFOR
-    WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-            .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-            .findElement(By.xpath("//input[@type='text' and @id='"
-                    + wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
-                    .findElement(By.xpath(".//label[@title='" + titleField + "']"))
-                    .getAttribute("for") + "']"));
-    return webElement;
+    return wd.findElement(By.xpath("//input[@type='text' and @id='"
+            + getAttribute(titleField, "for") + "']"));
   }
 
   // Методы получения атрибутов элементов
   // - Метод получения заданного атрибута по названию поля
-  protected String getAttribute(String titleField, String attribute) { // attribute = {"for", "id"}
+  protected String getAttribute(String titleField, String attribute) { // attribute - html-тег атрибута
     return wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
             .findElement(By.xpath(".//label[@title='" + titleField + "']")).getAttribute(attribute);
   }
@@ -189,13 +133,13 @@ public class HelperBase {
     webElement.sendKeys(value);
   }
 
-  protected void typeLookupSeveralUser(String value, String numberColumn ) {
+  protected void typeLookupSeveralUser(String value, String numberColumn) {
     type(filterLookupTable(numberColumn), value);
     sendKey(filterLookupTable(numberColumn), Keys.ENTER);
     clickCheckBoxLookupTable();
   }
 
-  protected void typeLookupForeverAloneUser(String value, String numberColumn ) {
+  protected void typeLookupForeverAloneUser(String value, String numberColumn) {
     type(filterLookupTable(numberColumn), value);
     sendKey(filterLookupTable(numberColumn), Keys.ENTER);
     click(getCellLookupTable(value));
