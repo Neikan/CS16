@@ -408,11 +408,6 @@
           <line>42</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/tests/docsout/FillNewForm.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="184" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -27,7 +27,6 @@ public class HelperBase {
   }
 
   // Методы определения типов полей
-
   protected WebElement fieldSwitch(String titleField) { // Флаг
     return wd.findElement(By.xpath("//div[@id='csui-dmbooleanfield-"
             + getAttribute(titleField, "for") + "']"))
@@ -60,13 +59,13 @@ public class HelperBase {
             + getAttribute(titleField, "id") + "']"));
   }
 
-  protected WebElement fieldDateTextFor(String titleField) { // Поле даты как текста по alpacaFOR
+  protected WebElement fieldDateTex(String titleField) { // Поле даты как текста по alpacaFOR
     return wd.findElement(By.xpath("//div[@id='csui-dmdatefield-"
             + getAttribute(titleField, "for") + "']"))
             .findElement(By.xpath(".//input[@type='text']"));
   }
 
-  protected WebElement fieldDateCalendarFor(String titleField) { // Поле даты из календаря по alpacaFOR
+  protected WebElement fieldDateCalendarFor(String titleField) { // Поле даты из календаря по alpacaFOR - не работает!
     return wd.findElement(By.xpath("//div[@id='csui-dmdatefield-"
             + getAttribute(titleField, "for")
             + "']/.//span[@class='icon-date_picker ']"));
@@ -93,7 +92,11 @@ public class HelperBase {
   // - Методы ЛКМ
   // -- Одинарный
   protected void click(By locator) {
-    WebDriverWait wait = new WebDriverWait(wd, 30);
+    wd.findElement(locator).click();
+  }
+
+  protected void click(By locator, int waitTime) {
+    WebDriverWait wait = new WebDriverWait(wd, waitTime);
     wait.until(elementToBeClickable(locator)).click();
   }
 
@@ -120,7 +123,6 @@ public class HelperBase {
 
 
   // Методы для заполнения полей
-
   protected void type(By locator, String value) {
     click(locator);
     wd.findElement(locator).clear();
@@ -184,7 +186,7 @@ public class HelperBase {
     webElement.sendKeys(keys);
   }
 
-  // Методы ожидания исчезновения элементов
+  // Методы ожидания визуального исчезновения элементов
   protected boolean visibility(By locator) { // Не используется в данный момент
     try {
       WebDriverWait wait = new WebDriverWait(wd, 60);
@@ -195,18 +197,23 @@ public class HelperBase {
     }
   }
 
-  protected void visibleOff(By locator) { // Не используется в данный момент
-    WebDriverWait wait = new WebDriverWait(wd, 30);
+  protected void invisible(By locator) { // Не используется в данный момент
+    WebDriverWait wait = new WebDriverWait(wd, 5);
     wait.until(invisibilityOfElementLocated(locator));
   }
 
-  protected void visibleOffAll(By locator) {
-    List<WebElement> elements = wd.findElements(locator);
+  protected void invisibleWidgetLoader(String nameWidget) { // Не используется в данный момент
     WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(invisibilityOfElementLocated(By.xpath("//div[@data-csui-widget_type='" + nameWidget + "']/.//div[@tclass='load-container binf-hidden']")));
+  }
+
+  protected void invisibleAll(By locator, int timeWait) {
+    List<WebElement> elements = wd.findElements(locator);
+    WebDriverWait wait = new WebDriverWait(wd, timeWait);
     wait.until(invisibilityOfAllElements(elements));
   }
 
-  protected void visibleOnAll(By locator) {
+  protected void visible(By locator) {
     List<WebElement> elements = wd.findElements(locator);
     WebDriverWait wait = new WebDriverWait(wd, 5);
     wait.until(visibilityOfAllElements(elements));
@@ -224,13 +231,8 @@ public class HelperBase {
     //js.executeScript("var textArea.innerHTML; getTextAreaContent(cont); setTimeout(function() {elem.click();}, 100)");
   }
 
-  protected void getLoc(By locator) {
-    wd.findElement(locator).getAttribute("title");
-    System.out.println(wd.findElement(locator).getAttribute("title"));
-    System.out.println(wd.findElement(locator).getCssValue("title"));
-  }
-
-  protected String getIdDoc() { // Возможно переделаем на получение ID - return id;
+  // Метод получения ID созданного нового документа
+  protected String getIdDoc() { // Возможно переделаем на получение ID - return id для модели данных;
     String id = null;
     String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
     String time = timeRaw.replace(":", "-").replace(" ", "T");
@@ -249,6 +251,7 @@ public class HelperBase {
     return id;
   }
 
+  // Методы прикрепления вложений
   protected void attach(By locator, File file) {
     try {
       if (file != null) {
@@ -259,6 +262,7 @@ public class HelperBase {
     }
   }
 
+  // Методы ожидания элементов
   protected void waitElem(int wait) {
     try {
       wd.manage().wait(wait);
@@ -267,6 +271,17 @@ public class HelperBase {
     }
   }
 
+  protected void waitAlertOff() {
+    try {
+      while (isElementPresent(By.xpath("//div[@class='cs-names-progress']"))) {
+        wait(1);
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  // Методы выбора значений из "подсказок" (автокомлит)
   protected void autoComplete(String titleField, String value) { // нужно переделать, т.к. сейчас title вообще не при делах
     WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
             .findElement(By.xpath(".//label[@title='" + titleField + "']"));
@@ -293,16 +308,20 @@ public class HelperBase {
     }
   }
 
+  // Методы открытия справочников
+  // - Метод открытия справочников с данными
   protected void openLookupNSI(String titleField) {
     click(wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
             .findElement(By.xpath(".//label[@title='" + titleField + "']/..//span[@class='assignment-task edit-list-container']")));
   }
 
+  // - Метод открытия справочников с пользователями и группами
   protected void openLookupUser(String titleField) {
     click(wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
             .findElement(By.xpath(".//label[@title='" + titleField + "']/..//span[@class='dmemployee edit-list-container']")));
   }
 
+  // Методы фильтрации справочников
   protected WebElement filterLookupTable(String numberColumn) {
     try {
       while (!isElementPresent(By.xpath("//tr[@class='jsgrid-filter-row']/.//td[" + numberColumn + "]/input"))) {
@@ -329,8 +348,15 @@ public class HelperBase {
     click(By.xpath("//tr[@class='jsgrid-row']/.//td/input[@type='checkbox']"));
   }
 
+  // Методы нажатия на кнопки
+  // - Метод нажатия кнопок в footer'e
   protected void clickButtonFooter(String textButton) {
-    click(wd.findElement(By.xpath("//div[@class='binf-modal-footer']/.//button[text()[(.='" + textButton + "')]]")));
+    click(wd.findElement(By.xpath("//div[contains(@class, 'binf-modal-footer')]/.//button[text()[(.='" + textButton + "')]]")));
+  }
+
+  // - Метод нажатия кнопок в tab-content'e
+  protected void clickButtonTabContent(String textButton) {
+    click(wd.findElement(By.xpath("//div[@class='binf-tab-pane binf-active']/.//button[text()[(.='" + textButton + "')]]")));
   }
 
   protected void buttonCancelNewDoc() {
@@ -348,6 +374,20 @@ public class HelperBase {
     }
     return webElement;
   }
+
+  // Методы прикрепления файлов
+  protected void attachFile(File file) {
+    click(By.xpath("//div[@class='csui-addToolbar']/.//span[@class='icon icon-toolbarAdd']"));
+    ((JavascriptExecutor) wd).executeScript(
+            "HTMLInputElement.prototype.click = function() {                     " +
+                    "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                    "};                                                                  ");
+    click(By.linkText("Документ"));
+    attach(By.xpath("//input[@type='file']"), file);
+    waitAlertOff();
+  }
+
+  // Методы проверки появления/наличия элементов
 
   public boolean isElementPresent(By locator) {
     try {

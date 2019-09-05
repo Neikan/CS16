@@ -8,18 +8,15 @@ public class FillNewForm extends TestBase {
   @Test
   public void fillNewForm() {
     app.session().loginAuthor();
-    app.goTo().docsOutbound();
+    app.goTo().favorites("Исходящие документы");
     app.docsout().gotoNewPage();
-    app.docsout().docDetails();
     app.docsout().fillDocDetails();
-    app.docsout().docRoute();
     app.docsout().fillDocRoute();
-    app.docsout().docAccounting();
     app.docsout().fillDocAccounting();
     app.docsout().confirmAddDoc();
     app.docsout().initModification();
-    app.docsout().attachFile();
+    app.docsout().attachFiles();
     app.docsout().startWorkflow();
-    System.out.println("Stop 3");
+    app.goTo().main();
   }
 }

@@ -122,14 +122,6 @@ public class ApplicationManager {
 
       proxyServer.newHar("MyExample");
       wd.get(properties.getProperty("web.baseUrl"));
-/*
-      try {
-        String timeRaw = String.valueOf(new Timestamp(System.currentTimeMillis()));
-        String time = timeRaw.replace(":", "-").replace(" ", "T");
-        proxyServer.getHar().writeTo(new File("results\\Test " + time + ".json"));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }*/
     }
     return wd;
   }
@@ -147,22 +139,14 @@ public class ApplicationManager {
         throw new RuntimeException("Cant start proxy-server on port: " + proxyServer.getPort(), e);
       }
     }
-    //proxyServer.enableHarCaptureTypes(CaptureType.RESPONSE_CONTENT);
     proxyServer.enableHarCaptureTypes(
             //CaptureType.REQUEST_HEADERS,
             //CaptureType.REQUEST_COOKIES,
             //CaptureType.REQUEST_CONTENT,
             //CaptureType.REQUEST_BINARY_CONTENT,
-
             //CaptureType.RESPONSE_HEADERS,
             //CaptureType.RESPONSE_COOKIES,
             CaptureType.RESPONSE_CONTENT);
-            //CaptureType.RESPONSE_BINARY_CONTENT);
-    /*proxyServer.addResponseFilter((response, contents, messageInfo) -> {
-      if (messageInfo.getOriginalUrl().contains("nodes")) {
-        contents.setTextContents("nodes");
-      }
-    });*/
     return proxyServer;
   }
 

@@ -8,9 +8,9 @@ public class GetLocators extends TestBase {
   @Test
   public void testGetLocators() {
     app.session().loginAuthor();
-    app.goTo().docsOutbound();
+    //app.goTo().docsOutbound();
     app.docsout().gotoNewPage();
-    app.docsout().docDetails();
-    app.docsout().docLocator();
+    //app.docsout().docDetails();
+
   }
 }
