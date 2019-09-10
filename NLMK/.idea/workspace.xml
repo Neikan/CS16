@@ -91,7 +91,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.44117647" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -217,6 +217,25 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="RandomTest" type="TestNG">
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="tests.docsout" />
+      <option name="MAIN_CLASS_NAME" value="tests.docsout.RandomTest" />
+      <option name="GROUP_NAME" value="" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea -Dbrowser=chrome" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="fillNewFormDocOut" type="TestNG">
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="tests.docsout" />
@@ -243,11 +262,12 @@
       <item itemvalue="Gradle.TestProxy2" />
       <item itemvalue="Gradle.RandomTest" />
       <item itemvalue="TestNG.fillNewFormDocOut" />
+      <item itemvalue="TestNG.RandomTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.FillNewForm" />
         <item itemvalue="Gradle.RandomTest" />
+        <item itemvalue="Gradle.FillNewForm" />
         <item itemvalue="Gradle.TestProxy" />
         <item itemvalue="Gradle.TestProxy2" />
         <item itemvalue="Gradle.ProxyServerTest" />

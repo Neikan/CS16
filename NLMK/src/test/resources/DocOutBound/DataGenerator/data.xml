@@ -1,0 +1,58 @@
+<list>
+    <docOutbound>
+        <!-- Глобальные -->
+
+        <linkDoc></linkDoc> <!-- Ссылка на карточку документа -->
+        <titleDoc></titleDoc> <!-- Название карточки документа -->
+
+        <!-- Реквизиты документа -->
+        <typeDoc>Письмо</typeDoc> <!-- Вид документа -->
+        <titleText>String.valueOf(new Timestamp(System.currentTimeMillis()))</titleText> <!-- Заголовок к тексту -->
+        <accessLevel>КТ</accessLevel> <!-- Ограничение доступа -->
+        <signatory>Рабовский</signatory> <!-- Подписант -->
+        <regDate></regDate> <!-- Дата регистрации -->
+        <regNumber></regNumber> <!-- Регистрационный номер -->
+        <status>-</status> <!-- Статус -->
+        <addresseeExternal>ООО "Матрёшка"</addresseeExternal> <!-- Организация внешнего адресата -->
+        <shippingMethodExternal>Электро</shippingMethodExternal> <!-- Способ отправки внешнему адресату -->
+        <addresseeInternal>Кутузов</addresseeInternal> <!-- Адресат внутренний -->
+
+        <!-- Маршрут документа -->
+        <checkFormalization></checkFormalization> <!-- Проверка оформления -->
+        <agreementHeadOfAuthor></agreementHeadOfAuthor> <!-- Согласование руководителем инициатора -->
+        <agreementLawyers></agreementLawyers> <!-- Согласование юристами -->
+        <normController></normController> <!-- Нормоконтролер -->
+        <matchingOne>Мягков</matchingOne> <!-- Согласующий 1 -->
+        <matchingTwo>Сыромятников</matchingTwo> <!-- Согласующий 2 -->
+        <matchingThree>Гахова</matchingThree> <!-- Согласующий 3 -->
+        <sender>Рокоссовский</sender> <!-- Отправитель -->
+        <priority>Высокий</priority> <!-- Приоритет -->
+        <priorityReason>Казнить, нельзя помиловать!</priorityReason>; <!-- Обоснование приоритета -->
+
+        <!-- Учет и хранение -->
+        <countListDoc>3</countListDoc> <!-- Количество листов документа -->
+        <countListAttach>2</countListAttach> <!-- Количество листов приложений -->
+        <typeMedium>Бумажный</typeMedium> <!-- Вид носителя -->
+        <rubric>Рубрика а</rubric> <!-- Рубрика -->
+        <postNumber>300</postNumber> <!-- Номер почтового отправления -->
+        <returnDate>01.09.2019</returnDate> <!-- Дата возврата документа -->
+        <notificationDate>02.09.2019</notificationDate> <!-- Дата поступления уведомления -->
+        <responseToNumber>200</responseToNumber> <!-- В ответ на (номер) -->
+        <responseToDate>03.09.2019</responseToDate> <!-- В ответ на (дата)") -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+        <!--  -->
+
+        <!-- Вложения -->
+        <fileXLS>src\test\resources\Attachments\Excel XLS.xls</fileXLS> <!-- Файл .xls -->
+        <fileXLSX>src\test\resources\Attachments\Excel XLSX.xlsx</fileXLSX> <!-- Файл .xlsx -->
+        <fileDOC>src\test\resources\Attachments\Служебная записка 1.doc</fileDOC> <!-- Файл .doc -->
+        <fileDOCX>src\test\resources\Attachments\Тестовый документ №1.docx</fileDOCX> <!-- Файл .docx -->
+        <filePDF>src\test\resources\Attachments\PDF 1.pdf</filePDF> <!-- Файл .pdf -->
+    </docOutbound>
+</list>
+
+

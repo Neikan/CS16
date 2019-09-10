@@ -4,14 +4,24 @@ import model.DocOutboundData;
 import model.DocsOutbound;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+
 public class HelperDocsOut extends HelperDocs {
   public HelperDocsOut(ApplicationManager app) {
     super(app);
+  }
+
+  public void fillForm() {
+    fillDocDetails();
+    fillDocRoute();
+    fillDocAccounting();
   }
 
   public void fillDocDetails() {
@@ -70,9 +80,9 @@ public class HelperDocsOut extends HelperDocs {
     docsOutboundCashe = new DocsOutbound();
     List<WebElement> rows = wd.findElements(By.partialLinkText(" - ИСХ - ")); // Если эта часть статична, то ок
     for (WebElement row : rows) {
-      String nameDoc = row.getText();
+      String titleDoc = row.getText();
       String linkDoc = row.getAttribute("href");
-      docsOutboundCashe.add(new DocOutboundData().withNameDoc(nameDoc).withLinkDoc(linkDoc));
+      docsOutboundCashe.add(new DocOutboundData().withTitleDoc(titleDoc).withLinkDoc(linkDoc));
     }
     return new DocsOutbound(docsOutboundCashe);
   }
@@ -91,7 +101,9 @@ public class HelperDocsOut extends HelperDocs {
     File fileDOC = new File("src/test/resources/Attachments/Служебная записка 1.doc");
     File fileDOCX = new File("src/test/resources/Attachments/Тестовый документ №1.docx");
 
+    //invisibleAll(By.className("load-container binf-hidden"), 10);
     invisibleWidgetLoader("attributes");
+    System.out.println("ЫЫЫ2:" + wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText());
     switchTabLink("Файлы");
     attachFile(fileXLS);
     attachFile(fileXLSX);
@@ -99,4 +111,38 @@ public class HelperDocsOut extends HelperDocs {
     attachFile(fileDOCX);
     attachFile(filePDF);
   }
+
+  // Тестовые методы
+  public void randomInvis() {
+    WebDriverWait wait = new WebDriverWait(wd, 10);
+    wait.until(invisibilityOfElementLocated(By.xpath("//div[@class='load-container csui-global']")));
+  }
+
+  public void randomDisplay() {
+    System.out.println(wd.findElement(By.xpath("//div[@class='load-container csui-global']")).isDisplayed());
+    while (wd.findElement(By.xpath("//div[@class='load-container csui-global']")).isDisplayed()) {
+      try {
+        wd.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void randomDis() {
+    WebDriverWait wait = new WebDriverWait(wd, 10);
+    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='load-container csui-global']")));
+  }
+/*
+  public String getTitleOut() {
+    titleDoc = wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText();
+    return titleDoc;
+  }
+
+  public void openTask() {
+    invisibleAll(By.className("load-container binf-hidden"), 10);
+    scroll(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + titleDoc + "')]"));
+    click(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + titleDoc + "')]"));
+  }*/
+
 }

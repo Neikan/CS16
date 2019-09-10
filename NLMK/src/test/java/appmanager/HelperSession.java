@@ -79,4 +79,10 @@ public class HelperSession extends HelperBase {
     type(By.name("otds_password"), app.getProperty("web.passwordSender"));
     click(By.id("loginbutton"));
   }
+
+  public void logoff() {
+    invisible(By.className("load-container binf-hidden"));
+    click(By.xpath("//span[@class='csui-profile-default-image image_user_placeholder']"));
+    click(By.xpath("//a[contains(@title, 'Выйти')]"));
+  }
 }

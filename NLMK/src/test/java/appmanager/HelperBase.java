@@ -96,12 +96,16 @@ public class HelperBase {
   }
 
   protected void click(By locator, int waitTime) {
+    /*WebDriverWait wait = new WebDriverWait(wd, waitTime);
+    wait.until(elementToBeClickable(locator)).click();*/
     WebDriverWait wait = new WebDriverWait(wd, waitTime);
-    wait.until(elementToBeClickable(locator)).click();
+    wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
   }
 
   protected void click(WebElement webElement) {
-    webElement.click();
+    //webElement.click();
+    WebDriverWait wait = new WebDriverWait(wd, 5);
+    wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
   }
 
   // - Двойной
@@ -197,19 +201,19 @@ public class HelperBase {
     }
   }
 
-  protected void invisible(By locator) { // Не используется в данный момент
+  protected void invisible(By locator) {
     WebDriverWait wait = new WebDriverWait(wd, 5);
     wait.until(invisibilityOfElementLocated(locator));
   }
 
-  protected void invisibleWidgetLoader(String nameWidget) { // Не используется в данный момент
-    WebDriverWait wait = new WebDriverWait(wd, 5);
-    wait.until(invisibilityOfElementLocated(By.xpath("//div[@data-csui-widget_type='" + nameWidget + "']/.//div[@tclass='load-container binf-hidden']")));
+  protected void invisibleWidgetLoader(String nameWidget) {
+    WebDriverWait wait = new WebDriverWait(wd, 10);
+    wait.until(invisibilityOfElementLocated(By.xpath("//div[@data-csui-widget_type='" + nameWidget + "']/.//div[@class='load-container binf-hidden']")));
   }
 
-  protected void invisibleAll(By locator, int timeWait) {
+  protected void invisibleAll(By locator, int waitTime) {
     List<WebElement> elements = wd.findElements(locator);
-    WebDriverWait wait = new WebDriverWait(wd, timeWait);
+    WebDriverWait wait = new WebDriverWait(wd, waitTime);
     wait.until(invisibilityOfAllElements(elements));
   }
 

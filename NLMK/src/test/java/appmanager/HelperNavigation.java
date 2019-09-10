@@ -13,7 +13,8 @@ public class HelperNavigation extends HelperBase {
   }
 
   public void favorites(String titleFavorite) {
-    invisibleWidgetLoader("favorites");
+    //invisibleWidgetLoader("favorites");
+    invisibleAll(By.className("load-container binf-hidden"), 10);
     click(By.xpath("//div[@data-csui-widget_type='favorites']/.//span[@title='" + titleFavorite + "']"), 1);
   }
 }
