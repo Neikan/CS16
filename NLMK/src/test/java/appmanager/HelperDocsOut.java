@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,56 +17,120 @@ public class HelperDocsOut extends HelperDocs {
     super(app);
   }
 
-  public void fillForm() {
-    fillDocDetails();
-    fillDocRoute();
-    fillDocAccounting();
+  public void fillForm(DocOutboundData docOutbound) { // Надо допилить все поля на форму
+    fillDocDetails(docOutbound);
+    fillDocRoute(docOutbound);
+    fillDocAccounting(docOutbound);
   }
 
-  public void fillDocDetails() {
+  public void fillDocDetails(DocOutboundData docOutbound) {
     switchTabDoc("Реквизиты документа");
-    typeFieldWithAutoComplete(fieldLookupNSIFor("Вид документа"), "Вид документа", "Письмо");
-    type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis())));
-    typeFieldWithAutoComplete(fieldLookupNSIId("Ограничение доступа"), "Ограничение доступа", "КТ");
-    typeFieldWithAutoCompleteUser(fieldLookupUserId("Подписант"), "Подписант", "Рабовский");
-    typeFieldWithAutoComplete(fieldLookupNSIFor("Организация внешнего адресата"), "Организация внешнего адресата", "ООО \"Матрёшка\"");
-    typeFieldWithAutoComplete(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Способ отправки внешнему адресату", "Электро");
-    scroll(fieldLookupUserFor("Адресат внутренний"));
-    typeFieldWithAutoCompleteUser(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", "Кутузов");
+
+    if (docOutbound.isTypeDoc()) {
+      typeFieldWithAutoComplete(fieldLookupNSIFor("Вид документа"), "Вид документа", docOutbound.getTypeDoc());
+    }
+
+    if (docOutbound.isTitleText()) {
+      if (docOutbound.getTitleText().equals("Timestamp")) {
+        type(fieldTextArea("Заголовок к тексту"), String.valueOf(new Timestamp(System.currentTimeMillis())));
+      } else
+        type(fieldTextArea("Заголовок к тексту"), docOutbound.getTitleText());
+    }
+
+    if (docOutbound.isAccessLevel()) {
+      typeFieldWithAutoComplete(fieldLookupNSIId("Ограничение доступа"), "Ограничение доступа", docOutbound.getAccessLevel());
+    }
+
+    if (docOutbound.isSignatory()) {
+      typeFieldWithAutoCompleteUser(fieldLookupUserId("Подписант"), "Подписант", docOutbound.getSignatory());
+    }
+
+    if (docOutbound.isAddresseeExternal()) {
+      typeFieldWithAutoComplete(fieldLookupNSIFor("Организация внешнего адресата"), "Организация внешнего адресата", docOutbound.getAddresseeExternal());
+    }
+
+    if (docOutbound.isShippingMethodExternal()) {
+      typeFieldWithAutoComplete(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Способ отправки внешнему адресату", docOutbound.getShippingMethodExternal());
+    }
+
+    if (docOutbound.isAddresseeInternal()) {
+      scroll(fieldLookupUserFor("Адресат внутренний"));
+      typeFieldWithAutoCompleteUser(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", docOutbound.getAddresseeInternal());
+    }
   }
 
-  public void fillDocRoute() {
+  public void fillDocRoute(DocOutboundData docOutbound) {
     switchTabDoc("Маршрут документа");
-    click(fieldSwitch("Проверка оформления"));
-    click(fieldSwitch("Согласование руководителем инициатора"));
-    click(fieldSwitch("Согласование юристами"));
+
+    if (docOutbound.isCheckFormalization()) {
+      click(fieldSwitch("Проверка оформления"));
+    }
+
+    if (docOutbound.isAgreementHeadOfAuthor()) {
+      click(fieldSwitch("Согласование руководителем инициатора"));
+    }
+
+    if (docOutbound.isAgreementLawyers()) {
+      click(fieldSwitch("Согласование юристами"));
+    }
+
     // Нормоконтролер - не заполняем пока что
-    openLookupUser("Согласующие");
-    typeLookupSeveralUser("Мягков", "3");
-    typeLookupSeveralUser("Сыромятников", "3");
-    typeLookupSeveralUser("Гахова", "3");
-    clickButtonFooter("Сохранить");
 
-    openLookupUser("Отправитель");
-    typeLookupForeverAloneUser("Рокоссовский", "2");
-    clickButtonFooter("Сохранить");
+    if (docOutbound.isMatchingOne() || docOutbound.isMatchingTwo() || docOutbound.isMatchingThree()) {
+      openLookupUser("Согласующие");
+      typeLookupSeveralUser(docOutbound.isMatchingOne(), docOutbound.getMatchingOne(), "3");
+      typeLookupSeveralUser(docOutbound.isMatchingTwo(), docOutbound.getMatchingTwo(), "3");
+      typeLookupSeveralUser(docOutbound.isMatchingThree(), docOutbound.getMatchingThree(), "3");
+      clickButtonFooter("Сохранить");
+    }
 
-    openLookupNSI("Приоритет");
-    doubleClick(getCellLookupTable("Высокий"));
+    if (docOutbound.isSender()) {
+      openLookupUser("Отправитель");
+      typeLookupForeverAloneUser(docOutbound.getSender(), "2");
+      clickButtonFooter("Сохранить");
+    }
 
-    scroll(fieldTextArea("Обоснование приоритета"));
-    type(fieldTextArea("Обоснование приоритета"), "Казнить, нельзя помиловать!");
+    if (docOutbound.isPriority()) {
+      openLookupNSI("Приоритет");
+      doubleClick(getCellLookupTable(docOutbound.getPriority()));
+    }
+
+    if (docOutbound.isPriorityReason()) {
+      scroll(fieldTextArea("Обоснование приоритета"));
+      type(fieldTextArea("Обоснование приоритета"), docOutbound.getPriorityReason());
+    }
   }
 
-  public void fillDocAccounting() {
+  public void fillDocAccounting(DocOutboundData docOutbound) {
     switchTabDoc("Учет и хранение");
-    type(fieldInteger("Количество листов документа"), "10");
-    type(fieldInteger("Количество листов приложений"), "20");
-    typeFieldWithAutoComplete(fieldLookupNSIFor("Вид носителя"), "Вид носителя", "Бумажный");
-    typeFieldWithAutoComplete(fieldLookupNSIId("Рубрика"), "Рубрика", "Рубрика а");
-    type(fieldText("Номер почтового отправления"), "300");
-    type(fieldText("В ответ на (номер)"), "200");
-    type(fieldDateTex("В ответ на (дата)"), "03.09.2019");
+
+    if (docOutbound.isCountListDoc()) {
+      type(fieldInteger("Количество листов документа"), docOutbound.getCountListDoc());
+    }
+
+    if (docOutbound.isCountListAttach()) {
+      type(fieldInteger("Количество листов приложений"), docOutbound.getCountListAttach());
+    }
+
+    if (docOutbound.isTypeCarrier()) {
+      typeFieldWithAutoComplete(fieldLookupNSIFor("Вид носителя"), "Вид носителя", docOutbound.getTypeCarrier());
+    }
+
+    if (docOutbound.isRubric()) {
+      typeFieldWithAutoComplete(fieldLookupNSIId("Рубрика"), "Рубрика", docOutbound.getRubric());
+    }
+
+    if (docOutbound.isPostNumber()) {
+      type(fieldText("Номер почтового отправления"), docOutbound.getPostNumber());
+    }
+
+    if (docOutbound.isResponseToNumber()) {
+      type(fieldText("В ответ на (номер)"), docOutbound.getResponseToNumber());
+    }
+
+    if (docOutbound.isResponseToDate()) {
+      type(fieldDateTex("В ответ на (дата)"), docOutbound.getResponseToDate());
+    }
   }
 
   private DocsOutbound docsOutboundCashe = null;
@@ -87,29 +150,21 @@ public class HelperDocsOut extends HelperDocs {
     return new DocsOutbound(docsOutboundCashe);
   }
 
-  public void initModification() {
+  public void initModification(DocOutboundData docOutbound) {
     invisibleAll(By.className("load-container binf-hidden"), 5); // Тут нужен какой-то таймаут
-    gotoDocPage(getIdDoc());
+    docOutbound.withId(getIdDoc());
+    gotoDocPage(docOutbound.getId());
   }
 
-  public void attachFiles() {
-    File fileXLS = new File("src/test/resources/Attachments/Excel XLS.xls");
-    //DocOutboundData docOut = new DocOutboundData().withFile(fileXLS);
-
-    File fileXLSX = new File("src/test/resources/Attachments/Excel XLSX.xlsx");
-    File filePDF = new File("src/test/resources/Attachments/PDF 1.pdf");
-    File fileDOC = new File("src/test/resources/Attachments/Служебная записка 1.doc");
-    File fileDOCX = new File("src/test/resources/Attachments/Тестовый документ №1.docx");
-
+  public void attachFiles(DocOutboundData docOutbound) {
     //invisibleAll(By.className("load-container binf-hidden"), 10);
     invisibleWidgetLoader("attributes");
-    System.out.println("ЫЫЫ2:" + wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText());
     switchTabLink("Файлы");
-    attachFile(fileXLS);
-    attachFile(fileXLSX);
-    attachFile(fileDOC);
-    attachFile(fileDOCX);
-    attachFile(filePDF);
+    attachFile(docOutbound.isFileXls(), docOutbound.getFileXls());
+    attachFile(docOutbound.isFileXlsx(), docOutbound.getFileXlsx());
+    attachFile(docOutbound.isFileDoc(), docOutbound.getFileDoc());
+    attachFile(docOutbound.isFileDocx(), docOutbound.getFileDocx());
+    attachFile(docOutbound.isFilePdf(), docOutbound.getFilePdf());
   }
 
   // Тестовые методы
@@ -133,16 +188,15 @@ public class HelperDocsOut extends HelperDocs {
     WebDriverWait wait = new WebDriverWait(wd, 10);
     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='load-container csui-global']")));
   }
-/*
-  public String getTitleOut() {
-    titleDoc = wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText();
-    return titleDoc;
+
+  public void getTitleOut(DocOutboundData docOutbound) {
+    invisibleWidgetLoader("attributes");
+    docOutbound.withTitleDoc(wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText());
   }
 
-  public void openTask() {
+  public void openTask(DocOutboundData docOutbound) {
     invisibleAll(By.className("load-container binf-hidden"), 10);
-    scroll(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + titleDoc + "')]"));
-    click(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + titleDoc + "')]"));
-  }*/
-
+    scroll(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]"));
+    click(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]"));
+  }
 }

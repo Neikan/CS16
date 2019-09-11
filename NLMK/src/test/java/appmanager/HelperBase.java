@@ -103,9 +103,15 @@ public class HelperBase {
   }
 
   protected void click(WebElement webElement) {
-    //webElement.click();
     WebDriverWait wait = new WebDriverWait(wd, 5);
     wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
+  }
+
+  protected void click(WebElement webElement, boolean isFill) {
+    if (isFill) {
+      WebDriverWait wait = new WebDriverWait(wd, 5);
+      wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
+    }
   }
 
   // - Двойной
@@ -143,6 +149,14 @@ public class HelperBase {
     type(filterLookupTable(numberColumn), value);
     sendKey(filterLookupTable(numberColumn), Keys.ENTER);
     clickCheckBoxLookupTable();
+  }
+
+  protected void typeLookupSeveralUser(boolean isFill, String value, String numberColumn) {
+    if (isFill) {
+      type(filterLookupTable(numberColumn), value);
+      sendKey(filterLookupTable(numberColumn), Keys.ENTER);
+      clickCheckBoxLookupTable();
+    }
   }
 
   protected void typeLookupForeverAloneUser(String value, String numberColumn) {
@@ -389,6 +403,19 @@ public class HelperBase {
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), file);
     waitAlertOff();
+  }
+
+  protected void attachFile(boolean isFill, File file) {
+    if (isFill) {
+      click(By.xpath("//div[@class='csui-addToolbar']/.//span[@class='icon icon-toolbarAdd']"));
+      ((JavascriptExecutor) wd).executeScript(
+              "HTMLInputElement.prototype.click = function() {                     " +
+                      "  if(this.type !== 'file') HTMLElement.prototype.click.call(this);  " +
+                      "};                                                                  ");
+      click(By.linkText("Документ"));
+      attach(By.xpath("//input[@type='file']"), file);
+      waitAlertOff();
+    }
   }
 
   // Методы проверки появления/наличия элементов

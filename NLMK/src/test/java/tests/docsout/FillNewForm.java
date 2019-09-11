@@ -52,19 +52,19 @@ public class FillNewForm extends TestBase {
 
 
   @Test(dataProvider = "validDocsOutboundFromXml")
-  public void fillNewForm() {
+  public void fillNewForm(DocOutboundData docOutbound) {
     app.session().loginAuthor();
     app.goTo().favorites("Исходящие документы");
     app.docs().gotoNewPage();
-    app.docsout().fillForm();
+    app.docsout().fillForm(docOutbound);
     app.docsout().confirmAddDoc();
-    app.docsout().initModification();
-    app.docsout().attachFiles();
-    //app.docsout().getDocOutbound();
+    app.docsout().initModification(docOutbound);
+    app.docsout().getTitleOut(docOutbound);
+    app.docsout().attachFiles(docOutbound);
     app.docsout().startWorkflow();
     app.goTo().main();
     app.session().logoff();
     app.session().loginController();
-    //app.docs().openTask();
+    app.docsout().openTask(docOutbound);
   }
 }

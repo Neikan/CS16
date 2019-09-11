@@ -1,9 +1,18 @@
 [
   {
-    "typeDoc": "",
-    "titleText": "",
-    "signatory" : "",
-    "accessLevel": "",
-    "status": ""
+    "linkDoc": "",
+    "nameDoc" : "",
+    "typeDoc": "Письмо",
+    "titleText": "String.valueOf(new Timestamp(System.currentTimeMillis()))",
+    "signatory" : "Рабовский",
+    "accessLevel": "КТ",
+    "status": "",
+    "regDate": "",
+
+    "fileXLS": "src\\test\\resources\\Attachments\\Excel XLS.xls",
+    "fileXLSX": "src\\test\\resources\\Attachments\\Excel XLSX.xlsx",
+    "fileDOC": "src\\test\\resources\\Attachments\\Служебная записка 1.doc",
+    "fileDOCX": "src\\test\\resources\\Attachments\\Тестовый документ №1.docx",
+    "filePDF": "src\\test\\resources\\Attachments\\PDF 1.pdf"
   }
 ]
