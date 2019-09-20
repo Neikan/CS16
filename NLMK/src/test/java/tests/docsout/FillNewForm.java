@@ -53,7 +53,7 @@ public class FillNewForm extends TestBase {
 
   @Test(dataProvider = "validDocsOutboundFromXml")
   public void fillNewForm(DocOutboundData docOutbound) {
-    app.session().loginAuthor();
+    app.session().loginAdmin();
     app.goTo().favorites("Исходящие документы");
     app.docs().gotoNewPage();
     app.docsout().fillForm(docOutbound);

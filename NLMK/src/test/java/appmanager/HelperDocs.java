@@ -1,6 +1,5 @@
 package appmanager;
 
-import model.DocOutboundData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -21,11 +20,12 @@ public class HelperDocs extends HelperBase {
   }
 
   public void gotoDocPage(String idDoc) {
-    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/" + idDoc);
+    wd.get(app.getProperty("web.part.formUrl") + idDoc); // Нужно заменить на property
+    //wd.get("http://ot-nlmk-be-dev1.ot.dev.local/OTCS/cs.exe/app/nodes/" + idDoc); // Нужно заменить на property
   }
 
   public void gotoRandomDoc() {
-    wd.get("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/app/nodes/3750571");
+    wd.get(app.getProperty("web.part.formUrl") + "3750571"); // Тестовое открытие произвольной карточки
     invisibleAll(By.className("load-container binf-hidden"), 5); // Тут нужен какой-то таймаут
     System.out.println("ЫЫЫ3: " + wd.findElement(By.xpath("//div[@class='cs-header']/.//h2[@class='csui-item-name-block']")).getText());
   }

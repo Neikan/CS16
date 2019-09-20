@@ -49,13 +49,31 @@ public class HelperDocsOut extends HelperDocs {
       typeFieldWithAutoComplete(fieldLookupNSIFor("Организация внешнего адресата"), "Организация внешнего адресата", docOutbound.getAddresseeExternal());
     }
 
+    if (docOutbound.isAddresseeExternalFullName()) {
+      type(fieldText("Адресат внешний"), docOutbound.getAddresseeExternalFullName());
+    }
+
+    if (docOutbound.isAddresseeExternalFullNameDative()) {
+      type(fieldText("ФИО внешнего адресата (в дательном падеже)"), docOutbound.getAddresseeExternalFullNameDative());
+    }
+
+    if (docOutbound.isAddresseeExternalEmail()) {
+      type(fieldText("E-mail внешнего адресата"), docOutbound.getAddresseeExternalEmail());
+    }
+
     if (docOutbound.isShippingMethodExternal()) {
       typeFieldWithAutoComplete(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Способ отправки внешнему адресату", docOutbound.getShippingMethodExternal());
     }
 
-    if (docOutbound.isAddresseeInternal()) {
+    /*if (docOutbound.isAddresseeInternal()) {
       scroll(fieldLookupUserFor("Адресат внутренний"));
-      typeFieldWithAutoCompleteUser(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", docOutbound.getAddresseeInternal());
+      typeFieldWithAutoCompleteUserNew(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", docOutbound.getAddresseeInternal());
+    }*/
+
+    if (docOutbound.isAddresseeInternal()) {
+      openLookupUser("Адресат внутренний");
+      typeLookupForeverAloneUser(docOutbound.getAddresseeInternal(), "2");
+      clickButtonFooter("Сохранить");
     }
   }
 

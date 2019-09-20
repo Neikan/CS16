@@ -13,16 +13,16 @@ public class DocOutboundData {
   private String titleDoc; // Название карточки документа
 
   // - Реквизиты документа
-  private boolean isTypeDoc; // Вид документа
+  private boolean isTypeDoc; // Заполняем Вид документа?
   private String typeDoc; // Вид документа
 
-  private boolean isTitleText; // Заголовок к тексту
+  private boolean isTitleText; // Заполняем Заголовок к тексту?
   private String titleText; // Заголовок к тексту
 
-  private boolean isAccessLevel; // Ограничение доступа
+  private boolean isAccessLevel; // Заполняем Ограничение доступа?
   private String accessLevel; // Ограничение доступа
 
-  private boolean isSignatory; // Подписант
+  private boolean isSignatory; // Заполняем Подписант?
   private String signatory; // Подписант
 
   private String regDate; // Дата регистрации
@@ -31,13 +31,22 @@ public class DocOutboundData {
 
   private String status; // Статус
 
-  private boolean isAddresseeExternal; // Организация внешнего адресата
+  private boolean isAddresseeExternal; // Заполняем Организация внешнего адресата?
   private String addresseeExternal; // Организация внешнего адресата
 
-  private boolean isShippingMethodExternal; // Способ отправки внешнему адресату
+  private boolean isAddresseeExternalFullName; // Заполняем Адресат внешний?
+  private String addresseeExternalFullName; // Адресат внешний
+
+  private boolean isAddresseeExternalFullNameDative; // Заполняем ФИО внешнего адресата(в дательном падеже)?
+  private String addresseeExternalFullNameDative; // ФИО внешнего адресата(в дательном падеже)
+
+  private boolean isAddresseeExternalEmail; // Заполняем E-mail внешнего адресата?
+  private String addresseeExternalEmail; // E-mail внешнего адресата
+
+  private boolean isShippingMethodExternal; // Заполняем Способ отправки внешнему адресату?
   private String shippingMethodExternal; // Способ отправки внешнему адресату
 
-  private boolean isAddresseeInternal; // Адресат внутренний
+  private boolean isAddresseeInternal; // Заполняем Адресат внутренний?
   private String addresseeInternal; // Адресат внутренний
 
   // - Маршрут документа
@@ -47,7 +56,7 @@ public class DocOutboundData {
 
   private boolean agreementLawyers; // Согласование юристами
 
-  private boolean isNormController; // Нормоконтролер
+  private boolean isNormController; // Заполняем Нормоконтролер?
   private String normController; // Нормоконтролер
 
   private boolean isMatchingOne; // Заполняем Согласующий 1?
@@ -59,41 +68,41 @@ public class DocOutboundData {
   private boolean isMatchingThree; // Заполняем Согласующий 3?
   private String matchingThree; // Согласующий 3
 
-  private boolean isSender; // Отправитель
+  private boolean isSender; // Заполняем Отправитель?
   private String sender; // Отправитель
 
-  private boolean isPriority; // Приоритет
+  private boolean isPriority; // Заполняем Приоритет?
   private String priority; // Приоритет
 
-  private boolean isPriorityReason; // Обоснование приоритета
+  private boolean isPriorityReason; // Заполняем Обоснование приоритета?
   private String priorityReason; // Обоснование приоритета
 
   // - Учет и хранение
-  private boolean isCountListDoc; // Количество листов документа
+  private boolean isCountListDoc; // Заполняем Количество листов документа?
   private String countListDoc; // Количество листов документа
 
-  private boolean isCountListAttach; // Количество листов приложений
+  private boolean isCountListAttach; // Заполняем Количество листов приложений?
   private String countListAttach; // Количество листов приложений
 
-  private boolean isTypeCarrier; // Вид носителя
+  private boolean isTypeCarrier; // Заполняем Вид носителя?
   private String typeCarrier; // Вид носителя
 
-  private boolean isRubric; // Рубрика
+  private boolean isRubric; // Заполняем Рубрика?
   private String rubric; // Рубрика
 
-  private boolean isPostNumber; // Номер почтового отправления
+  private boolean isPostNumber; // Заполняем Номер почтового отправления?
   private String postNumber; // Номер почтового отправления
 
-  private boolean isReturnDate; // Дата возврата документа
+  private boolean isReturnDate; // Заполняем Дата возврата документа?
   private String returnDate; // Дата возврата документа
 
-  private boolean isNotificationDate; // Дата поступления уведомления
+  private boolean isNotificationDate; // Заполняем Дата поступления уведомления?
   private String notificationDate; // Дата поступления уведомления
 
-  private boolean isResponseToNumber; // В ответ на (номер)
+  private boolean isResponseToNumber; // Заполняем В ответ на (номер)?
   private String responseToNumber; // В ответ на (номер)
 
-  private boolean isResponseToDate; // В ответ на (дата)
+  private boolean isResponseToDate; // Заполняем В ответ на (дата)?
   private String responseToDate; // В ответ на (дата)
 
   // - Вложения
@@ -178,6 +187,30 @@ public class DocOutboundData {
 
   public String getAddresseeExternal() {
     return addresseeExternal;
+  }
+
+  public boolean isAddresseeExternalFullName() {
+    return isAddresseeExternalFullName;
+  }
+
+  public String getAddresseeExternalFullName() {
+    return addresseeExternalFullName;
+  }
+
+  public boolean isAddresseeExternalFullNameDative() {
+    return isAddresseeExternalFullNameDative;
+  }
+
+  public String getAddresseeExternalFullNameDative() {
+    return addresseeExternalFullNameDative;
+  }
+
+  public boolean isAddresseeExternalEmail() {
+    return isAddresseeExternalEmail;
+  }
+
+  public String getAddresseeExternalEmail() {
+    return addresseeExternalEmail;
   }
 
   public boolean isShippingMethodExternal() {
@@ -464,6 +497,37 @@ public class DocOutboundData {
     this.addresseeExternal = addresseeExternal;
     return this;
   }
+
+  public DocOutboundData withIsAddresseeExternalFullName(boolean isAddresseeExternalFullName) {
+    this.isAddresseeExternalFullName = isAddresseeExternalFullName;
+    return this;
+  }
+
+  public DocOutboundData withAddresseeExternalFullName(String addresseeExternalFullName) {
+    this.addresseeExternalFullName = addresseeExternalFullName;
+    return this;
+  }
+
+  public DocOutboundData withIsAddresseeExternalFullNameDative(boolean isAddresseeExternalFullNameDative) {
+    this.isAddresseeExternalFullNameDative = isAddresseeExternalFullNameDative;
+    return this;
+  }
+
+  public DocOutboundData withAddresseeExternalFullNameDative(String addresseeExternalFullNameDative) {
+    this.addresseeExternalFullNameDative = addresseeExternalFullNameDative;
+    return this;
+  }
+
+  public DocOutboundData withIsAddresseeExternalEmail(boolean isAddresseeExternalEmail) {
+    this.isAddresseeExternalEmail = isAddresseeExternalEmail;
+    return this;
+  }
+
+  public DocOutboundData withAddresseeExternalEmail(String addresseeExternalEmail) {
+    this.addresseeExternalEmail = addresseeExternalEmail;
+    return this;
+  }
+
 
   public DocOutboundData withIsShippingMethodExternal(boolean isShippingMethodExternal) {
     this.isShippingMethodExternal = isShippingMethodExternal;

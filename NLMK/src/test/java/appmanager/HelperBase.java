@@ -175,6 +175,11 @@ public class HelperBase {
     autoCompleteUser(titleField, value);
   }
 
+  protected void typeFieldWithAutoCompleteUserNew(WebElement webElement, String titleField, String value) {
+    type(webElement, value);
+    autoCompleteUserNew(titleField, value);
+  }
+
   protected void typeFieldDate() {
 
   }
@@ -256,7 +261,8 @@ public class HelperBase {
     String time = timeRaw.replace(":", "-").replace(" ", "T");
     List<HarEntry> entries = proxyServer.getHar().getLog().getEntries();
     for (HarEntry entry : entries) {
-      if (entry.getRequest() != null && entry.getRequest().getUrl().contains("http://ot-nlmk-be-dev2.ot.dev.local/OTCS/cs.exe/api/v1/nodes")) {
+      //if (entry.getRequest() != null && entry.getRequest().getUrl().contains("http://ot-nlmk-be-dev1.ot.dev.local/OTCS/cs.exe/api/v1/nodes")) {
+      if (entry.getRequest() != null && entry.getRequest().getUrl().contains(app.getProperty("web.v1.nodes.Url"))) {
         id = entry.getResponse().getContent().getText().replaceAll("\\D+", "");
         try (FileOutputStream fos = new FileOutputStream(new File("results\\Test " + time + ".json"))) {
           byte[] buffer = id.getBytes();
@@ -321,6 +327,28 @@ public class HelperBase {
         wait(5);
       }
       click(webElement.findElement(By.xpath("//span[text()[contains(.,'" + value + "')]]")));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  protected void autoCompleteUserNew(String titleField, String value) { // Экспериментальный метод
+    /*WebElement webElement = wd.findElement(By.xpath("//div[@class='binf-modal-body']"))
+            .findElement(By.xpath(".//label[@title='" + titleField + "']"));*/
+    try {
+      while (!isElementPresent(By.xpath("//ul[contains (@style,'block')]"))) {
+        wait(5);
+      }
+      List<WebElement> list = wd.findElements(By.xpath("//ul[contains (@style,'block')]"));
+      System.out.println("Auto Suggest List ::" + list.size());
+      for (int i = 0; i < list.size(); i++) {
+        System.out.println(list.get(i).getText());
+
+        if (list.get(i).getText().contains(value)) {
+          list.get(i).click();
+          break;
+        }
+      }
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

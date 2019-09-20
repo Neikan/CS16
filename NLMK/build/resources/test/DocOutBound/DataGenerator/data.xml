@@ -23,7 +23,7 @@
 
         <!--- Подписант -->
         <isSignatory>true</isSignatory> <!-- Заполняем? -->
-        <signatory>Рабовский</signatory> <!-- Значение -->
+        <signatory>Есенин</signatory> <!-- Значение -->
 
         <!--- Дата регистрации -->
         <regDate></regDate>
@@ -36,7 +36,19 @@
 
         <!--- Организацию внешнего адресата -->
         <isAddresseeExternal>true</isAddresseeExternal> <!-- Заполняем? -->
-        <addresseeExternal>ООО "Матрёшка"</addresseeExternal> <!-- Значение -->
+        <addresseeExternal>АО КБ "Прибор"</addresseeExternal> <!-- Значение -->
+
+        <!--- Адресат внешний -->
+        <isAddresseeExternalFullName>false</isAddresseeExternalFullName>
+        <addresseeExternalFullName></addresseeExternalFullName>
+
+        <!--- ФИО внешнего адресата (в дательном падеже) -->
+        <isAddresseeExternalFullNameDative>true</isAddresseeExternalFullNameDative>
+        <addresseeExternalFullNameDative>Гречкину Игорю Петровичу</addresseeExternalFullNameDative>
+
+        <!--- ФИО внешнего адресата (в дательном падеже) -->
+        <isAddresseeExternalEmail>true</isAddresseeExternalEmail>
+        <addresseeExternalEmail>sladkove@terralink-global.com</addresseeExternalEmail>
 
         <!--- Способ отправки внешнему адресату -->
         <isShippingMethodExternal>true</isShippingMethodExternal> <!-- Заполняем? -->
@@ -44,7 +56,7 @@
 
         <!--- Адресат внутренний -->
         <isAddresseeInternal>true</isAddresseeInternal> <!-- Заполняем? -->
-        <addresseeInternal>Кутузов</addresseeInternal> <!-- Значение -->
+        <addresseeInternal>Толстой</addresseeInternal> <!-- Значение -->
 
         <!-- Маршрут документа -->
         <!--- Проверка оформления -->
@@ -62,19 +74,19 @@
 
         <!--- Согласующий 1 -->
         <isMatchingOne>false</isMatchingOne> <!-- Заполняем? -->
-        <matchingOne>Мягков</matchingOne> <!-- Значение -->
+        <matchingOne>Лермонтов</matchingOne> <!-- Значение -->
 
         <!--- Согласующий 2 -->
         <isMatchingTwo>true</isMatchingTwo> <!-- Заполняем? -->
-        <matchingTwo>Сыромятников</matchingTwo> <!-- Значение -->
+        <matchingTwo>Достоевский</matchingTwo> <!-- Значение -->
 
         <!--- Согласующий 3 -->
         <isMatchingThree>false</isMatchingThree> <!-- Заполняем? -->
-        <matchingThree>Гахова</matchingThree> <!-- Значение -->
+        <matchingThree>Пушкин</matchingThree> <!-- Значение -->
 
         <!--- Отправитель -->
         <isSender>true</isSender> <!-- Заполняем? -->
-        <sender>Рокоссовский</sender> <!-- Значение -->
+        <sender>Чехов</sender> <!-- Значение -->
 
         <!--- "Приоритет" -->
         <isPriority>true</isPriority> <!-- Заполняем? -->
