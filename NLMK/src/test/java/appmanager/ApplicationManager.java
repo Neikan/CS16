@@ -7,9 +7,7 @@ import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.mitm.manager.ImpersonatingMitmManager;
 import net.lightbody.bmp.proxy.CaptureType;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -200,5 +198,9 @@ public class ApplicationManager {
       }
       js.executeScript(script);
     }
+  }
+
+  public byte[] takeScreenshot() {
+    return  ((TakesScreenshot) wd).getScreenshotAs(OutputType.BYTES);
   }
 }

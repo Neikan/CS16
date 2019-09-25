@@ -8,6 +8,7 @@ public class HelperSession extends HelperBase {
     super(app);
   }
 
+
   public void loginAdmin() {
     type(By.name("otds_username"), app.getProperty("web.loginAdmin"));
     type(By.name("otds_password"), app.getProperty("web.passwordAdmin"));

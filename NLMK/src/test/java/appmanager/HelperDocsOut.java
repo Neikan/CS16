@@ -65,11 +65,6 @@ public class HelperDocsOut extends HelperDocs {
       typeFieldWithAutoComplete(fieldLookupNSIFor("Способ отправки внешнему адресату"), "Способ отправки внешнему адресату", docOutbound.getShippingMethodExternal());
     }
 
-    /*if (docOutbound.isAddresseeInternal()) {
-      scroll(fieldLookupUserFor("Адресат внутренний"));
-      typeFieldWithAutoCompleteUserNew(fieldLookupUserFor("Адресат внутренний"), "Адресат внутренний", docOutbound.getAddresseeInternal());
-    }*/
-
     if (docOutbound.isAddresseeInternal()) {
       openLookupUser("Адресат внутренний");
       typeLookupForeverAloneUser(docOutbound.getAddresseeInternal(), "2");
@@ -214,7 +209,7 @@ public class HelperDocsOut extends HelperDocs {
 
   public void openTask(DocOutboundData docOutbound) {
     invisibleAll(By.className("load-container binf-hidden"), 10);
-    scroll(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]"));
-    click(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]"));
+    scroll(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]]"));
+    click(By.xpath("//div[@class='SLIDescription']/.//span[text()[contains(.,'" + docOutbound.getTitleDoc() + "')]]"));
   }
 }

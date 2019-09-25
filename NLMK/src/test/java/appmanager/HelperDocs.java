@@ -55,4 +55,30 @@ public class HelperDocs extends HelperBase {
     //invisibleAll(By.className("load-container binf-hidden"), 10);
   }
 
+  public void taskAccept() {
+    clickButtonFooter("Принять");
+    invisible(By.xpath("//div[@title='Этот поток операций был принят вами']"));
+    //waitTaskAlertOff(By.xpath("//div[@class='csui-header csui-height-target']"), 5);
+  }
+
+  public void taskReject() {
+    clickButtonFooter("Отклонить");
+  }
+
+  public void taskDelegate() {
+    clickButtonTask("Делегировать");
+  }
+
+  public void taskApprove() {
+    clickButtonTask("Согласовано");
+  }
+
+  public void taskForRework() {
+    clickButtonTask("На доработку");
+  }
+
+  public void taskClose() {
+    clickButtonTask("Закрыть");
+  }
+
 }

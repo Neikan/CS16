@@ -53,7 +53,7 @@ public class FillNewForm extends TestBase {
 
   @Test(dataProvider = "validDocsOutboundFromXml")
   public void fillNewForm(DocOutboundData docOutbound) {
-    app.session().loginAdmin();
+    app.session().loginAuthor();
     app.goTo().favorites("Исходящие документы");
     app.docs().gotoNewPage();
     app.docsout().fillForm(docOutbound);
@@ -66,5 +66,11 @@ public class FillNewForm extends TestBase {
     app.session().logoff();
     app.session().loginController();
     app.docsout().openTask(docOutbound);
+    app.docs().taskAccept();
+    app.docs().taskApprove();
+    app.session().logoff();
+    app.session().loginHeadOfAuthor();
+    app.docsout().openTask(docOutbound);
+    app.docs().taskForRework();
   }
 }

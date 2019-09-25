@@ -86,7 +86,7 @@
 
         <!--- Отправитель -->
         <isSender>true</isSender> <!-- Заполняем? -->
-        <sender>Чехов</sender> <!-- Значение -->
+        <sender>Пушкин</sender> <!-- Значение -->
 
         <!--- "Приоритет" -->
         <isPriority>true</isPriority> <!-- Заполняем? -->

@@ -17,3 +17,5 @@ gradle-app.setting
 *.html
 
 NLMK/results/
+
+NLMK/allure-report/

@@ -135,14 +135,24 @@ public class HelperBase {
   // Методы для заполнения полей
   protected void type(By locator, String value) {
     click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(value);
+    if (value != null) {
+      String existingText = wd.findElement(locator).getAttribute("value");
+      if (!value.equals(existingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(value);
+      }
+    }
   }
 
   protected void type(WebElement webElement, String value) {
     click(webElement);
-    webElement.clear();
-    webElement.sendKeys(value);
+    if (value != null) {
+      String existingText = webElement.getAttribute("value");
+      if (!value.equals(existingText)) {
+        webElement.clear();
+        webElement.sendKeys(value);
+      }
+    }
   }
 
   protected void typeLookupSeveralUser(String value, String numberColumn) {
@@ -295,7 +305,7 @@ public class HelperBase {
     }
   }
 
-  protected void waitAlertOff() {
+  protected void waitFileAlertOff() {
     try {
       while (isElementPresent(By.xpath("//div[@class='cs-names-progress']"))) {
         wait(1);
@@ -303,6 +313,20 @@ public class HelperBase {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  protected void waitTaskAlertOff(By locator, int waitTime) {
+    /*
+    try {
+      while (isElementPresent(By.xpath("//div[@class='cs-names-progress']"))) {
+        wait(1);
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    */
+    WebDriverWait wait = new WebDriverWait(wd, waitTime);
+    wait.until(ExpectedConditions.elementToBeSelected(locator));
   }
 
   // Методы выбора значений из "подсказок" (автокомлит)
@@ -405,6 +429,11 @@ public class HelperBase {
     click(wd.findElement(By.xpath("//div[@class='binf-tab-pane binf-active']/.//button[text()[(.='" + textButton + "')]]")));
   }
 
+  // - Метод нажатия кнопок в задаче
+  protected void clickButtonTask(String textButton) {
+    click(wd.findElement(By.xpath("//div[@class='workitem-footer cs-dialog binf-modal-footer']/.//button[text()[(.='" + textButton + "')]]")));
+  }
+
   protected void buttonCancelNewDoc() {
     wd.findElement(By.xpath("//button[@class='binf-btn binf-btn-default csui-acc-tab-region csui-acc-focusable-active']"));
   }
@@ -430,7 +459,7 @@ public class HelperBase {
                     "};                                                                  ");
     click(By.linkText("Документ"));
     attach(By.xpath("//input[@type='file']"), file);
-    waitAlertOff();
+    waitFileAlertOff();
   }
 
   protected void attachFile(boolean isFill, File file) {
@@ -442,7 +471,7 @@ public class HelperBase {
                       "};                                                                  ");
       click(By.linkText("Документ"));
       attach(By.xpath("//input[@type='file']"), file);
-      waitAlertOff();
+      waitFileAlertOff();
     }
   }
 
